@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{89af248b-03c7-4f4d-8122-b07edb837232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drivers">
+      <UniqueIdentifier>{e161b9dd-ee0e-47fd-9a3b-a9ad6ce4fdd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interrupt">
+      <UniqueIdentifier>{1efb88f3-a4a3-4b06-bcd6-8669b6f1c543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Debugging">
+      <UniqueIdentifier>{0c37f6df-c803-4c5f-97ef-b154302810e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cpu">
+      <UniqueIdentifier>{8ac3314f-9fbd-41db-b00a-1c050e2e3aff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Runtime">
+      <UniqueIdentifier>{62a1f5b2-93d9-464a-bb49-d50c0195cae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Threading">
+      <UniqueIdentifier>{83db8b55-deca-4a15-ab93-0764f552a10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Parts">
+      <UniqueIdentifier>{2f2c65fd-cddc-40bb-83a6-a612bad26557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="KMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PEFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KMemory.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="KPhysicalMemoryAllocator.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="KVirtualMemory_x86.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="KDisplay.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="KKeyboard.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="KRealTimeClock.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="KSerial.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="KTimer.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="KInterrupt.cpp">
+      <Filter>Source Files\Interrupt</Filter>
+    </ClCompile>
+    <ClCompile Include="KDebug.cpp">
+      <Filter>Source Files\Debugging</Filter>
+    </ClCompile>
+    <ClCompile Include="KCpu.cpp">
+      <Filter>Source Files\Cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="KRuntime.cpp">
+      <Filter>Source Files\Runtime</Filter>
+    </ClCompile>
+    <ClCompile Include="KCriticalSection.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="KInterlocked.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="KLocks.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="KQueue.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="KScheduler.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="KSemaphore.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="KMemory32.asm">
+      <Filter>Source Files\Memory</Filter>
+    </NASM>
+    <NASM Include="KInterrupt32.asm">
+      <Filter>Source Files\Interrupt</Filter>
+    </NASM>
+    <NASM Include="KCpu32.asm">
+      <Filter>Source Files\Cpu</Filter>
+    </NASM>
+    <NASM Include="KRuntime32.asm">
+      <Filter>Source Files\Runtime</Filter>
+    </NASM>
+    <NASM Include="KInterlocked32.asm">
+      <Filter>Source Files\Threading</Filter>
+    </NASM>
+    <NASM Include="KMain32.asm">
+      <Filter>Source Files</Filter>
+    </NASM>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Multiboot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PEFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KCpu.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KDebug.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KDisplay.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KDriver.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KInterlocked.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KInterrupt.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KKeyboard.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KLocks.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KMemory.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KQueue.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KRealTimeClock.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KRuntime.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KSerial.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KTimer.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KTypes.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

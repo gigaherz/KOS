@@ -1,0 +1,1466 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>OS Design Ideas</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Lucida Console";
+	panose-1:2 11 6 9 4 5 4 2 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+h1
+	{mso-style-link:"Título 1 Car";
+	margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;}
+h2
+	{mso-style-link:"Título 2 Car";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+h3
+	{mso-style-link:"Título 3 Car";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+h4
+	{mso-style-link:"Título 4 Car";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-style:italic;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:5.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:5.0pt;
+	margin-left:11.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:5.0pt;
+	margin-left:22.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Texto de globo Car";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
+	{margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Ttulo1Car
+	{mso-style-name:"Título 1 Car";
+	mso-style-link:"Título 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Ttulo2Car
+	{mso-style-name:"Título 2 Car";
+	mso-style-link:"Título 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Ttulo3Car
+	{mso-style-name:"Título 3 Car";
+	mso-style-link:"Título 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Ttulo4Car
+	{mso-style-name:"Título 4 Car";
+	mso-style-link:"Título 4";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;
+	font-style:italic;}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	font-size:10.0pt;
+	font-family:"Lucida Console";}
+span.TextodegloboCar
+	{mso-style-name:"Texto de globo Car";
+	mso-style-link:"Texto de globo";
+	font-family:"Tahoma","sans-serif";}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=ES link=blue vlink=purple>
+
+<div class=Section1>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img width=769 height=936
+src="OS%20Design%20-%20lite_archivos/image001.png">&nbsp;</p>
+
+<span lang=EN-US style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt;line-height:
+115%;font-family:"Cambria","serif";color:#365F91'>&nbsp;</span></b></p>
+
+<br clear=ALL>
+
+<p class=MsoTocHeading><span lang=EN-US>Table of Contents</span></p>
+
+<p class=MsoToc1><a href="#_Toc195614717"><span lang=EN-US>High-Level stuff</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc195614718"><span lang=EN-US>File system
+structure</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614719"><span lang=EN-US>Service Roots</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614720"><span lang=EN-US>Directory Components</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614721"><span lang=EN-US>The System Root</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc195614722"><span lang=EN-US>User mode API</span><span
+style='color:windowtext;display:none;text-decoration:none'> </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614723"><span lang=EN-US>Naming Convention</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614724"><span lang=EN-US>Function  Interface
+(parameters) Convention</span><span style='color:windowtext;display:none;
+text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614725"><span lang=EN-US>Result Codes</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614726"><span lang=EN-US>API Function Ideas</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>6</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc195614727"><span lang=EN-US>Mid-level stuff</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>11</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc195614728"><span lang=EN-US>User-Driver Interface
+Ideas</span><span style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>11</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614729"><span lang=EN-US>Base Driver Model</span><span
+style='color:windowtext;display:none;text-decoration:none'> </span><span
+style='color:windowtext;display:none;text-decoration:none'>11</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614730"><span lang=EN-US>Special-Purpose
+Driver Interfaces (using IORequest)</span><span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>11</span></a></p>
+
+<p class=MsoToc1><a href="#_Toc195614731"><span lang=EN-US>Low-level stuff</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>12</span></a></p>
+
+<p class=MsoToc2><a href="#_Toc195614732"><span lang=EN-US>Boot Process</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>12</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614733"><span lang=EN-US>Boot sequence</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>12</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614734"><span lang=EN-US>Class 1 Drivers
+(Bootloader)</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>12</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614735"><span lang=EN-US>Class 2 Drivers
+(Boot Devices)</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>13</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614736"><span lang=EN-US>Class 3 Drivers</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>13</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614737"><span lang=EN-US>Memory Manager</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>13</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614738"><span lang=EN-US>Event Queue</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>13</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614739"><span lang=EN-US>System Timers</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>13</span></a></p>
+
+<p class=MsoToc3><a href="#_Toc195614740"><span lang=EN-US>Task Scheduler</span><span
+style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>13</span></a></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h1><span lang=EN-US>&nbsp;</span></h1>
+
+<span lang=EN-US style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt;line-height:
+115%;font-family:"Cambria","serif";color:#365F91'>&nbsp;</span></b></p>
+
+<h1><a name="_Toc195614717"><span lang=EN-US>High-Level stuff</span></a></h1>
+
+<h2><a name="_Toc195614718"><span lang=EN-US>File system structure</span></a></h2>
+
+<p class=MsoNormal><span lang=EN-US>The file system path format is based on the
+standard internet URI format.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The paths are formed like ([] denotes optionality,
+* denotes “zero or more”):</span></p>
+
+<p class=MsoNormal style='margin-left:35.4pt'><span lang=EN-US>[&lt;service&gt;:][/&lt;component&gt;]*[/]</span></p>
+
+<h3><a name="_Toc195614719"><span lang=EN-US>Service Roots</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Each full path starts with a service root.
+The service root is an identifier followed by a colon.</span></p>
+
+<h4><span lang=EN-US>Examples:</span></h4>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“system:” is the main root where all the system
+devices, services, and other system components lie.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>A partition on a hard drive could be assigned to
+the “data:” root.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“ftp:” would be a valid Service Root for a
+service implementing the File Transfer Protocol.</span></p>
+
+<h3><a name="_Toc195614720"><span lang=EN-US>Directory Components</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Each component consists of a forward slash,
+followed by an identifier. Path components are case-sensitive by default,
+meaning a component “/Foo” and a component “/foo” do not necessarily point to
+the same place. Services which choose to implement case-insensitive components
+should accept any case as input, and should always show lower-case when
+listing.</span></p>
+
+<h4><span lang=EN-US>Examples:</span></h4>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“ftp://ftp.mozilla.org/pub/firefox/” could be a
+perfectly valid path, assuming there’s a “ftp:” service to handle it (the path
+parsing routines automatically remove extra “/” characters).</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>If said “ftp:” handler was installed, the OS
+would expose a message pipe in “system:/services/ftp” which could be queried
+for information on the service.</span></p>
+
+<h3><span lang=EN-US>Relative paths: floating, same-relative, and upper-relative</span></h3>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>A path (with or without a service root
+specifier) which doesn’t start with a forward-slash character is assumed to
+refer to the current working directory for the specified service (or the
+current working service if also unspecified).</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>A path component with only a single dot as the
+name refers to the current directory.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>A path component with only two dots (one after
+the other) as the name refers to the upper-level directory in the tree.</span></p>
+
+<h4><span lang=EN-US>Examples</span></h4>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“a:/b/./c” is the same as “a:/b/c”</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“a:/b/c/../d” is the same as “a:/b/d”</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“a:/..” is illegal and will either return an
+error, or resolve to “a:/”</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>“a:/b/./././././././../c”, while being
+redundant, resolves to “a:/c”</span></p>
+
+<h3><a name="_Toc195614721"><span lang=EN-US>The System Root</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>The system root, “system:” implements most
+of the service and device interfaces.</span></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='margin-left:12.5pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=151 colspan=2 valign=top style='width:4.0cm;border:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=EN-US>system:/</span></b></p>
+  </td>
+  <td width=408 valign=top style='width:306.3pt;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><b><span lang=EN-US>Description</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>/devices</span></p>
+  </td>
+  <td width=408 valign=top style='width:306.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Lists the devices exposed by the drivers for use in
+  the user side.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>/services</span></p>
+  </td>
+  <td width=408 valign=top style='width:306.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Lists the registered root handler service programs.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>/named</span></p>
+  </td>
+  <td width=408 valign=top style='width:306.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Lists the system-wide named objects.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=123 valign=top style='width:92.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>/alias</span></p>
+  </td>
+  <td width=408 valign=top style='width:306.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Lists the path-to-root aliases.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<span lang=EN-US style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h2><a name="_Toc195614722"><span lang=EN-US>User mode API</span></a></h2>
+
+<p class=MsoNormal><span lang=EN-US>The user-mode API defines the set of
+functions implemented in the user-mode system library.</span></p>
+
+<h3><a name="_Toc195614723"><span lang=EN-US>Naming Convention</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>The goal of the API is to implement a
+object-oriented interface, while keeping the API independent of specific
+programming language restrictions.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>To achieve this goal, the API will
+implement the object-oriented paradigm through plain functions and object
+handles.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>API functions names will include the name
+of the object class they act on at the beginning of the name.</span></p>
+
+<h4><span lang=EN-US>Example</span></h4>
+
+<p class=MsoListParagraph style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>All functions which work on “file” objects, will
+have their names start with “File”, like “FileOpen”, “FileRead”, etc.</span></p>
+
+<h3><a name="_Toc195614724"><span lang=EN-US>Function  Interface (parameters)
+Convention</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>API functions will take the main object
+handle always as the first parameter (if there’s one), followed by the parameters
+for the specific function or method. The return value(s) will then follow last,
+sent as references/pointers, and filled by the function. The actual return
+value of the API functions will be a result code, telling about the result of
+the operation, and in case of failure, the details of the error.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The function parameters can have two
+attributes depending on the usage:</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>[IN] means the parameter is passed using the
+default method for the type.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>[REF] means the parameter is passed as a pointer
+to a memory location where the data is.</span></p>
+
+<h4><span lang=EN-US>Type Table</span></h4>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border-top:none;border-left:none;
+  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:solid black 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>[IN]</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border:solid black 1.0pt;
+  border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>[REF]</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border:solid black 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Any</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>-</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Raw Pointer (void* in C)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border:solid black 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Handle</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Direct Value (integer)</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Handle (Handle*)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border:solid black 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>String</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Read-only Data (const wchar*)</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Data (wchar*)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border:solid black 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Int/UInt</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Direct Value (integer)</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to type (Int*/UInt*)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border:solid black 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Struct Types</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Read-only Data (const &lt;type&gt;*)</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Data (&lt;type&gt;*)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=92 valign=top style='width:69.2pt;border:solid black 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Buffer/Array</span></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Read-only Data (const &lt;type&gt;*)</span></p>
+  </td>
+  <td width=210 valign=top style='width:157.45pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><span lang=EN-US>Pointer to Data (&lt;type&gt;*)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h4><span lang=EN-US>Example</span></h4>
+
+<p class=Code style='margin-left:35.45pt'><span lang=EN-US style='font-size:
+8.0pt'>ResultCode <b>DirectoryCreateEntry</b> (  // Always return ResultCode</span></p>
+
+<p class=Code style='margin-top:0cm;margin-right:-21.35pt;margin-bottom:6.0pt;
+margin-left:35.45pt'><span lang=EN-US style='font-size:8.0pt'>               Handle
+[IN] dir,       // The first parameter is the object</span></p>
+
+<p class=Code style='margin-left:35.45pt'><span lang=EN-US style='font-size:
+8.0pt'>               String [IN] entryName, // Then the method parameters</span></p>
+
+<p class=Code style='margin-left:35.45pt'><span lang=EN-US style='font-size:
+8.0pt'>               Handle [IN] file,</span></p>
+
+<p class=Code style='margin-top:0cm;margin-right:-49.7pt;margin-bottom:6.0pt;
+margin-left:35.45pt'><span lang=EN-US style='font-size:8.0pt'>               Handle
+[REF] entry );  // And last a reference to the return handle</span></p>
+
+<h3><a name="_Toc195614725"><span lang=EN-US>Result Codes</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>The result code will be a 32 or 64bit value
+(depending on the native size of the OS and CPU), and its contents depend on
+the success or failure status.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>A success code is any code with the
+top-most bit set to 0 (in other words, a positive integer). In case of a
+success, the rest of the bits in the result code are undefined, and free to use
+by the function.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In case of a failure, the code will be
+encoded as follows:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;severity&gt;&lt;cause type&gt;[&lt;padding&gt;]&lt;cause
+code&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;severity&gt; will be a 4bit number 
+with the top-most bit always set to “1”. This leaves severity to a range of 0
+through 7, as follows:</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>0. Basic Error: This kind of error should be the
+most common, and would include invalid parameter errors and similar problems.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>1. Security Error: This kind of error includes
+causes derived from missing access privileges.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>2. Not Available Error: The system cannot
+execute this function, either because it’s not implemented, or because the
+resource is unavailable at the moment.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>3. Fatal Error: This error indicates the
+resource which the function is corrupted or lost, and the application will have
+to dispose of the handle and try to re-gain access to it.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>4 through 7: these error severity codes are
+internal to the system, and an application should never receive them.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;cause type&gt; will be a 12bit number
+with system-defined causes (all undefined values are considered reserved and
+should NOT be used). The value with all bits set to “1” can be used for
+user-defined result codes where no system code is applicable.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In the 64bit API, &lt;padding&gt; will
+consist of a series of 32 “0” bits. In the 32bit API, there’s no
+&lt;padding&gt; present.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&lt;cause code&gt; will be a 16bit number,
+and its valid values will depend on the &lt;cause type&gt;. As with it,
+undefined &lt;cause codes&gt; are reserved and should not be used. The
+exception is with the user-defined cause type, where all cause codes are valid.</span></p>
+
+<h3><a name="_Toc195614726"><span lang=EN-US>API Function Ideas</span></a></h3>
+
+<h4><span lang=EN-US>Named Objects</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ObjectCreateName</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] object, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] name );</span></p>
+
+<h4><span lang=EN-US>Directory Listing</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryOpen </b>( </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] name, </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] handle );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryClose</b> ( Handle [IN]
+dir );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryRewind</b> ( Handle [IN]
+dir );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryGetCurrent</b> (</span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] dir, </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] entry );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryGoNext</b> ( Handle [IN]
+dir );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryCreateEntry</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] dir, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] entryName</span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] file</span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] entry );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryEntryGetName</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] entry, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [REF] name );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryEntrySetName</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] entry, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] name );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryEntryGetAccessList</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] entry, </span></p>
+
+<p class=Code><span lang=EN-US>                       AccessList [REF] list );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryEntrySetAccessList</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] entry, </span></p>
+
+<p class=Code><span lang=EN-US>                       AccessList [REF] list );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DirectoryEntryDelete</b> ( Handle
+[IN] entry );</span></p>
+
+<h4><span lang=EN-US>File Access</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileOpen</b> ( String [IN] path,
+Handle [REF] file );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileClose</b> ( Handle [IN] file
+);</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileGetInformation </b>( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] file, </span></p>
+
+<p class=Code><span lang=EN-US>                       FileInformation [REF]
+info );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileSetInformation</b>  </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] file, </span></p>
+
+<p class=Code><span lang=EN-US>                       FileInformation [REF]
+info );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileGetStream</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] file, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] streamName, </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] streamHandle
+);</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileCreateStream</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] file, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] streamName, </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] streamHandle
+);</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FileDeleteStream</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] file, </span></p>
+
+<p class=Code><span lang=EN-US>                       String [IN] streamName );</span></p>
+
+<h4><span lang=EN-US>Stream Access</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamRead</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] stream, </span></p>
+
+<p class=Code><span lang=EN-US>                       UInt [IN] byteSize, </span></p>
+
+<p class=Code><span lang=EN-US>                       Any [REF] buffer );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamWrite</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] stream, </span></p>
+
+<p class=Code><span lang=EN-US>                       UInt [IN] byteSize, </span></p>
+
+<p class=Code><span lang=EN-US>                       Any [REF] buffer );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamSeek</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] stream, </span></p>
+
+<p class=Code><span lang=EN-US>                       UInt64 [IN] position, </span></p>
+
+<p class=Code><span lang=EN-US>                       ReferencePosition [IN] from
+);</span></p>
+
+<h4><span lang=EN-US>Stream Pipes</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamPipeCreate</b> ( Handle
+[REF] pipe );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamPipeDispose</b> ( Handle
+[IN] pipe );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamPipeGetReadStream</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] pipe, </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] stream );</span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>StreamPipeGetWriteStream</b> ( </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [IN] pipe, </span></p>
+
+<p class=Code><span lang=EN-US>                       Handle [REF] stream );</span></p>
+
+<h4><span lang=EN-US>Message Pipe Access</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MessagePipeCreate</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MessagePipeDispose</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MessagePipeSend</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MessagePipeReceive</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MessagePipeReceivePending</b></span></p>
+
+<h4><span lang=EN-US>Processes, Modules and Threads</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ProcessCreate</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ProcessAttachModule</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ProcessCreateThread</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ThreadCreate</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ThreadSetAddress</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ThreadSuspend</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ThreadContinue</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ModuleLoad</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ModuleUnload</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ModuleGetExport</b></span></p>
+
+<h4><span lang=EN-US>Memory and Address Mapping</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MemoryAlloc</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MemoryRelease</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MemoryMapViewOfMemory</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MemoryMapViewOfFile</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MemoryUnmap</b></span></p>
+
+<h4><span lang=EN-US>Structured Exception Handling</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ExceptionPushHandler</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ExceptionPopHandler</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ExceptionSetSeverityFilter</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ExceptionAddResultTypeFilter</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ExceptionRaise</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>ExceptionRaiseAfterDelay</b></span></p>
+
+<h4><span lang=EN-US>Synchronization</span></h4>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MutexAlloc</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MutexDispose</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MutexAcquire</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>MutexRelease</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SemaphoreAlloc</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SemaphoreDispose</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SemaphoreSetCounter</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SemaphoreCountDown</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SemaphoreCountUp</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>WaitableQueueAlloc</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>WaitableQueueDispose</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>WaitableQueueWait</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>WaitableQueueNotify</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>WaitableQueueNotifyAll</b></span></p>
+
+<h4><span lang=EN-US>Base Graphics Layer</span></h4>
+
+<p class=Code><span lang=EN-US>Resultcode <b>GraphicsDeviceGetCount</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>GraphicsDeviceGetInformation</b></span></p>
+
+<p class=Code><span lang=EN-US>Resultcode <b>DesktopsGetCount</b></span></p>
+
+<p class=Code><span lang=EN-US>Resultcode <b>DesktopsGetDesktop</b></span></p>
+
+<p class=Code><span lang=EN-US>Resultcode <b>DesktopCreate</b></span></p>
+
+<p class=Code><span lang=EN-US>Resultcode <b>DesktopDestroy</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DesktopSetParent</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DesktopGetSize</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DesktopSetSize</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DesktopGetSurface</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DesktopSetSurface</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceCreate</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceDestroy</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceCopy</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceGetProperties</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceGetImage</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceSetImage</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceSetBrush</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>SurfaceSetPen</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawLine</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawRectangle</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawEllipse</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawArc</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawPolyline</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawSpline</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawImage</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawImageUnscaled</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawImageBlended</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>DrawImageTransformed</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FillRectangle</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FillEllipse</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FillArc</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FillPolyline</b></span></p>
+
+<p class=Code><span lang=EN-US>ResultCode <b>FillSpline</b></span></p>
+
+<p class=Code><span lang=EN-US>&nbsp;</span></p>
+
+<h4><span lang=EN-US>More to come…</span></h4>
+
+<span lang=EN-US style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt;line-height:
+115%;font-family:"Cambria","serif";color:#365F91'>&nbsp;</span></b></p>
+
+<h1><a name="_Toc195614727"><span lang=EN-US>Mid-level stuff</span></a></h1>
+
+<h2><a name="_Toc195614728"><span lang=EN-US>User-Driver Interface Ideas</span></a></h2>
+
+<h3><a name="_Toc195614729"><span lang=EN-US>Base Driver Model</span></a></h3>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Stream Devices</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Random Block Devices</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Message (Variable-size Packet) Devices</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>DeviceControl/DeviceRequest</span></p>
+
+<h3><a name="_Toc195614730"><span lang=EN-US>Special-Purpose Driver Interfaces
+(using DeviceRequest)</span></a></h3>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Kernel-mode Service (File System) Handler</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Graphics Device Interface</span></p>
+
+<h3><span lang=EN-US>DeviceControl</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>The DeviceControl interface function is
+used to change settings and parameters for a device.</span></p>
+
+<h3><span lang=EN-US>DeviceRequest</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>The DeviceRequest interface function
+submits a request to the device’s queue for processing. Once the device is done
+processing the request, it will mark it as processed and return it to the
+kernel, which will either unlock the process (</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<span lang=EN-US style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt;line-height:
+115%;font-family:"Cambria","serif";color:#365F91'>&nbsp;</span></b></p>
+
+<h1><a name="_Toc195614731"><span lang=EN-US>Low-level stuff</span></a></h1>
+
+<h2><a name="_Toc195614732"><span lang=EN-US>Boot Process</span></a></h2>
+
+<p class=MsoNormal><span lang=EN-US>The initial steps of the booting process
+vary depending on the kind of hardware, and the place where the OS boots from.</span></p>
+
+<h4><span lang=EN-US>Some examples are:</span></h4>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:37.5pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>16bit BIOS boot from Floppy</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:37.5pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>16bit BIOS boot from HDD</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:37.5pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>16bit boot from DOS</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:37.5pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>32bit boot from EFI</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:37.5pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>32bit multiboot loader</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:37.5pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>…</span></p>
+
+<h3><a name="_Toc195614733"><span lang=EN-US>Boot sequence</span></a></h3>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(bootloader) Load kernel image from disk</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(bootloader) Initialize 32bit processor mode
+(only for 16bit boot modes)</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(bootloader) Initialize 32bit environment for
+kernel startup</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(bootloader) Initialize class 1 drivers and
+update kernel driver table (known addr.) </span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(bootloader) Jump to kernel base address</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(kernel) Initialize memory manager (required for
+class 2 drivers)</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(kernel) Initialize system timers</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(kernel) Load and initialize class 2 drivers</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>(kernel) Load and initialize class 3 drivers as
+the devices are being discovered by class 2 and 3 drivers.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>10.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+lang=EN-US>(kernel) Initialize task scheduler, event queue, and system service
+root</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>11.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+lang=EN-US>(kernel) Load user boot process</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>12.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+lang=EN-US>(kernel) Queue user boot task in scheduler</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>13.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+lang=EN-US>(kernel) Tell scheduler to run</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US>14.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span><span
+lang=EN-US>(kernel) Rest until next syscall</span></p>
+
+<h3><a name="_Toc195614734"><span lang=EN-US>Class 1 Drivers (Bootloader)</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>These are drivers needed for the first
+steps of the boot process. They build the bootstrap environment required to
+load the rest of the kernel and driver modules from the disk. These drivers are
+configured by the bootloader as part of the initial kernel environment.</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>BIOS/EFI keyboard input</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>BIOS/EFI console</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>BIOS/EFI disk I/O</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Basic Serial-port/Ethernet Debug Interface</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Memory Controller Driver</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Processor Features Driver</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Chipset Features Driver</span></p>
+
+<h3><a name="_Toc195614735"><span lang=EN-US>Class 2 Drivers (Boot Devices)</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>These are the basic drivers required to
+initialize the rest of the system, and must not have any dependency on other
+drivers, but they already use the normal driver system.</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Legacy Keyboard</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Serial port and PS/2 Mouse</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>PCI Enumerator</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>IDE/AHCI/SCSI Drivers </span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>OHCI Drivers (USB and FW)</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>VGA/VESA Graphics</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Kernel File System Drivers</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>…(?)</span></p>
+
+<h3><a name="_Toc195614736"><span lang=EN-US>Class 3 Drivers</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Every other driver, even if it doesn’t have
+dependencies, will be a class 3 driver…</span></p>
+
+<h3><a name="_Toc195614737"><span lang=EN-US>Memory Manager</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Pages, Access rights, Process ownership,
+address mapping</span></p>
+
+<h3><a name="_Toc195614738"><span lang=EN-US>Event Queue</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Keyboard, mouse, etc. </span></p>
+
+<h3><a name="_Toc195614739"><span lang=EN-US>System Timers</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Main timer:</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Fast (10/100khz or so…)</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>System counters and timers updated here</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN-US>Task scheduler will update every N ticks
+(configurable).</span></p>
+
+<h3><a name="_Toc195614740"><span lang=EN-US>Task Scheduler</span></a></h3>
+
+<p class=MsoNormal><span lang=EN-US>Basic idea: Round-robin with a bunch of
+priority queues.</span></p>
+
+<h2><span lang=EN-US>Driver Interface</span></h2>
+
+<h3><span lang=EN-US>Device Identifiers and Classes</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>When a driver is loaded, the driver will
+register a series of filters to tell the kernel which devices IDs or classes it
+can handle.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Given in some cases a user might want to
+install a completely virtual device, drivers can request the kernel to generate
+a virtual device identifier for which the kernel will generate a device
+descriptor. The driver will then receive that identifier in the handler
+detection function, where it can expose new devices or device points.</span></p>
+
+<h3><span lang=EN-US>Device Descriptors</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>After a driver is loaded, the kernel will
+give it all the devices it can handle. The driver than can accept the device,
+or reject it.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If the driver accepts the device, the
+kernel will mark that entry as handled, point it to the driver, and increase
+the driver’s usage count.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If the driver rejects the device, the
+kernel will try with the next possible driver and if none wants it, mark it as
+“uncontrolled”. A user-mode tool can then query the device information service
+and request the user to provide a driver for it (or detect it automatically). </span></p>
+
+<p class=MsoNormal><span lang=EN-US>A user-mode process can request the loading
+of a driver, in which case the kernel will look at all the “uncontrolled”
+devices if there’s any which match the driver’s filters.</span></p>
+
+<h3><span lang=EN-US>Device Points</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>When a driver wants to expose a device for
+use from user-mode processes, it can register a device point. Device points are
+entries in the system service root, under system:/devices/.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Those device points will then be accessible
+as any other file, using stream, block, or message interfaces, depending on the
+device.</span></p>
+
+</div>
+
+</body>
+
+</html>

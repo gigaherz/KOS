@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8479758C-9CD4-401D-AA3A-FD0B0BD29673}</ProjectGuid>
+    <RootNamespace>Kernel</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Temp\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</EmbedManifest>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <CustomBuildStep>
+      <Message>Preparing floppy image...</Message>
+      <Command>%40echo off
+del success.txt
+
+copy "$(SolutionDir)Image\BootableFloppy.flp" "$(SolutionDir)Output.flp"
+IF ERRORLEVEL 1 GOTO error
+
+"$(OutDir)MultibootFix.exe" "$(TargetPath)"
+IF ERRORLEVEL 1 GOTO error
+
+"$(OutDir)Fatten.exe" "$(SolutionDir)Output.flp" /add "$(TargetPath)" $(TargetFileName)
+IF ERRORLEVEL 1 GOTO error
+
+echo 1 &gt; success.txt
+GOTO end
+
+:error
+echo ERROR executing post-build operations.
+
+:end
+</Command>
+      <Inputs>Fatten.exe KMultibootFix.exe;%(Inputs)</Inputs>
+      <Outputs>success.txt;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <CallingConvention>FastCall</CallingConvention>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/filealign:0x1000  %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>$(TargetDir)/$(TargetName).map</MapFileName>
+      <SubSystem>Native</SubSystem>
+      <LargeAddressAware>true</LargeAddressAware>
+      <OptimizeReferences>false</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <BaseAddress>0x80100000</BaseAddress>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <FixedBaseAddress>true</FixedBaseAddress>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
+      <MergeSections>
+      </MergeSections>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="KMain.cpp" />
+    <ClCompile Include="PEFile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="KMemory.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">All</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="KPhysicalMemoryAllocator.cpp" />
+    <ClCompile Include="KVirtualMemory_x86.cpp" />
+    <ClCompile Include="KDisplay.cpp" />
+    <ClCompile Include="KKeyboard.cpp" />
+    <ClCompile Include="KRealTimeClock.cpp" />
+    <ClCompile Include="KSerial.cpp" />
+    <ClCompile Include="KTimer.cpp" />
+    <ClCompile Include="KInterrupt.cpp" />
+    <ClCompile Include="KDebug.cpp" />
+    <ClCompile Include="KCpu.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="KRuntime.cpp" />
+    <ClCompile Include="KCriticalSection.cpp" />
+    <ClCompile Include="KInterlocked.cpp" />
+    <ClCompile Include="KLocks.cpp" />
+    <ClCompile Include="KQueue.cpp" />
+    <ClCompile Include="KScheduler.cpp" />
+    <ClCompile Include="KSemaphore.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="KMain32.asm">
+      <OutputFormat Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename).obj</OutputFormat>
+      <ErrorReportingFormat Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</ErrorReportingFormat>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(FileName).obj</ObjectFileName>
+    </NASM>
+    <NASM Include="KMemory32.asm" />
+    <NASM Include="KInterrupt32.asm" />
+    <NASM Include="KCpu32.asm" />
+    <NASM Include="KRuntime32.asm" />
+    <NASM Include="KInterlocked32.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="Multiboot.h" />
+    <ClInclude Include="PEFile.h" />
+    <ClInclude Include="KCpu.h" />
+    <ClInclude Include="KDebug.h" />
+    <ClInclude Include="KDisplay.h" />
+    <ClInclude Include="KDriver.h" />
+    <ClInclude Include="KInterlocked.h" />
+    <ClInclude Include="KInterrupt.h" />
+    <ClInclude Include="KKeyboard.h" />
+    <ClInclude Include="KLocks.h" />
+    <ClInclude Include="KMemory.h" />
+    <ClInclude Include="KQueue.h" />
+    <ClInclude Include="KRealTimeClock.h" />
+    <ClInclude Include="KRuntime.h" />
+    <ClInclude Include="KSerial.h" />
+    <ClInclude Include="KTimer.h" />
+    <ClInclude Include="KTypes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\nasm.targets" />
+  </ImportGroup>
+</Project>

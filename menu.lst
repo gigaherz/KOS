@@ -1,0 +1,27 @@
+# menu.lst - See: grub(8), info grub, update-grub(8)
+#            grub-install(8), grub-floppy(8),
+#            grub-md5-crypt, /usr/share/doc/grub
+#            and /usr/share/doc/grub-doc/.
+
+## default num
+# Set the default entry to the entry number NUM. Numbering starts from 0, and
+# the entry number 0 is the default if the command is not used.
+#
+# You can specify 'saved' instead of a number. In this case, the default entry
+# is the entry saved with the command 'savedefault'.
+# WARNING: If you are using dmraid do not use 'savedefault' or your
+# array will desync and will not let you boot your system.
+default		0
+
+## timeout sec
+# Set a timeout, in SEC seconds, before automatically booting the default entry
+# (normally the first entry defined).
+timeout		5
+
+## hiddenmenu
+# Hides the menu by default (press ESC to see the menu)
+#hiddenmenu
+
+title		The K OS Project Test Kernel
+root		(fd0)
+kernel	/Kernel.exe

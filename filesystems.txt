@@ -1,0 +1,28 @@
+system:/
+	/Applications
+	/Local
+		/Config
+		/Libraries
+	/Profiles
+	/Devices
+	/Services
+	/Kernel
+		/Boot
+		/Modules
+
+
+user:/ -> system:/Profiles/<username>
+	/Workspace
+		/Desktop
+	/Content
+	/Config
+	/Libraries
+
+
+system:/Applications/<appname>
+	/Content
+	/Config
+	/UserDefaults
+		/Content
+		/Config
+	/Dependencies

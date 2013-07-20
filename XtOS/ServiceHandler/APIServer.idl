@@ -1,0 +1,25 @@
+
+// File DoRPC.idl
+[
+ // A unique identifier that distinguishes this
+ // interface from other interfaces.
+ uuid(4530d6e9-1966-47e3-a953-98d229e2f7d1),
+
+ // This is version 1.0 of this interface.
+ version(1.0),
+
+ // This interface will use an implicit binding
+ // handle named hAPIServerBinding.
+ implicit_handle(handle_t hAPIServerBinding)
+]
+
+interface APIServer
+{
+	typedef int APIResult;
+
+	// Calls a remote function with a specific id. the input data goes in bData and is bLen bytes long.
+	// The result status code goes in the return value and up to retLen bytes of return data might get written into bData.
+	APIResult CallFunction( [in] int funcId, [in, out, size_is(*retLen)] byte* bData, [in] int bLen, [in, out] int* retLen);
+
+	APIResult SystemLogPrint( [in] int msgLevel, [in, string] char* pMsg );
+}
