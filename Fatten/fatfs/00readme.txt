@@ -1,13 +1,14 @@
-FatFs Module Source Files R0.07c                        (C)ChaN, 2009
+FatFs Module Source Files R0.09b                       (C)ChaN, 2013
 
 
 FILES
 
+  ffconf.h   Configuration file for FatFs module.
   ff.h       Common include file for FatFs and application module.
   ff.c       FatFs module.
   diskio.h   Common include file for FatFs and disk I/O module.
-  diskio.c   Skeleton of low level disk I/O module.
-  integer.h  Alternative type definitions for integer variables.
+  diskio.c   An example of glue function to attach existing disk I/O module to FatFs.
+  integer.h  Integer type definitions for FatFs.
   option     Optional external functions.
 
   Low level disk I/O module is not included in this archive because the FatFs
@@ -23,7 +24,7 @@ AGREEMENTS
  small embedded systems. This is a free software and is opened for education,
  research and commercial developments under license policy of following trems.
 
-  Copyright (C) 2009, ChaN, all right reserved.
+  Copyright (C) 2012, ChaN, all right reserved.
 
  * The FatFs module is a free software and there is NO WARRANTY.
  * No restriction on use. You can use, modify and redistribute it for
@@ -100,5 +101,38 @@ REVISION HISTORY
                        Added relative path feature.
                        Added f_chdir().
                        Added f_chdrive().
-                       Added proper case conversion to extended char.
+                       Added proper case conversion for extended characters.
+
+  Nov 03, 2009 R0.07e  Separated out configuration options from ff.h to ffconf.h.
+                       Added a configuration option, _LFN_UNICODE.
+                       Fixed f_unlink() fails to remove a sub-dir on _FS_RPATH.
+                       Fixed name matching error on the 13 char boundary.
+                       Changed f_readdir() to return the SFN with always upper case on non-LFN cfg.
+
+  May 15, 2010, R0.08  Added a memory configuration option. (_USE_LFN)
+                       Added file lock feature. (_FS_SHARE)
+                       Added fast seek feature. (_USE_FASTSEEK)
+                       Changed some types on the API, XCHAR->TCHAR.
+                       Changed fname member in the FILINFO structure on Unicode cfg.
+                       String functions support UTF-8 encoding files on Unicode cfg.
+
+  Aug 16,'10 R0.08a    Added f_getcwd(). (_FS_RPATH = 2)
+                       Added sector erase feature. (_USE_ERASE)
+                       Moved file lock semaphore table from fs object to the bss.
+                       Fixed a wrong directory entry is created on non-LFN cfg when the given name contains ';'.
+                       Fixed f_mkfs() creates wrong FAT32 volume.
+
+  Jan 15,'11 R0.08b    Fast seek feature is also applied to f_read() and f_write().
+                       f_lseek() reports required table size on creating CLMP.
+                       Extended format syntax of f_printf function.
+                       Ignores duplicated directory separators in given path names.
+
+  Sep 06,'11 R0.09     f_mkfs() supports multiple partition to finish the multiple partition feature.
+                       Added f_fdisk(). (_MULTI_PARTITION = 2)
+
+  Aug 27,'12 R0.09a    Fixed assertion failure due to OS/2 EA on FAT12/16.
+                       Changed f_open() and f_opendir() reject null object pointer to avoid crash.
+                       Changed option name _FS_SHARE to _FS_LOCK.
+
+  Jan 23,'13 R0.09b    Added f_getlabel() and f_setlabel(). (_USE_LABEL == 1)
 

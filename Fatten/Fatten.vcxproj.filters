@@ -24,12 +24,6 @@
     <ClCompile Include="Fatten.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fatfs\diskio.cpp">
-      <Filter>FatFs</Filter>
-    </ClCompile>
-    <ClCompile Include="fatfs\ff.cpp">
-      <Filter>FatFs</Filter>
-    </ClCompile>
     <ClCompile Include="fatfs\option\cc932.c">
       <Filter>FatFs\Option</Filter>
     </ClCompile>
@@ -42,11 +36,23 @@
     <ClCompile Include="fatfs\option\cc950.c">
       <Filter>FatFs\Option</Filter>
     </ClCompile>
-    <ClCompile Include="fatfs\option\ccsbcs.cpp">
-      <Filter>FatFs\Option</Filter>
-    </ClCompile>
     <ClCompile Include="fatfs\option\syncobj.c">
       <Filter>FatFs\Option</Filter>
+    </ClCompile>
+    <ClCompile Include="fatfs\option\syscall.c">
+      <Filter>FatFs\Option</Filter>
+    </ClCompile>
+    <ClCompile Include="fatfs\option\unicode.c">
+      <Filter>FatFs\Option</Filter>
+    </ClCompile>
+    <ClCompile Include="fatfs\option\ccsbcs.c">
+      <Filter>FatFs\Option</Filter>
+    </ClCompile>
+    <ClCompile Include="fatfs\diskio.c">
+      <Filter>FatFs</Filter>
+    </ClCompile>
+    <ClCompile Include="fatfs\ff.c">
+      <Filter>FatFs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,9 @@
       <Filter>FatFs</Filter>
     </ClInclude>
     <ClInclude Include="fatfs\integer.h">
+      <Filter>FatFs</Filter>
+    </ClInclude>
+    <ClInclude Include="fatfs\ffconf.h">
       <Filter>FatFs</Filter>
     </ClInclude>
   </ItemGroup>

@@ -87,9 +87,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fatfs\option\syscall.c" />
+    <ClCompile Include="fatfs\option\unicode.c" />
     <ClCompile Include="Fatten.cpp" />
-    <ClCompile Include="fatfs\diskio.cpp" />
-    <ClCompile Include="fatfs\ff.cpp" />
+    <ClCompile Include="fatfs\diskio.c" />
+    <ClCompile Include="fatfs\ff.c" />
     <ClCompile Include="fatfs\option\cc932.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -106,7 +108,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="fatfs\option\ccsbcs.cpp" />
+    <ClCompile Include="fatfs\option\ccsbcs.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="fatfs\option\syncobj.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -116,6 +120,7 @@
     <ClInclude Include="FAT.h" />
     <ClInclude Include="fatfs\diskio.h" />
     <ClInclude Include="fatfs\ff.h" />
+    <ClInclude Include="fatfs\ffconf.h" />
     <ClInclude Include="fatfs\integer.h" />
   </ItemGroup>
   <ItemGroup>

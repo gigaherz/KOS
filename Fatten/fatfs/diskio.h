@@ -1,13 +1,19 @@
 /*-----------------------------------------------------------------------
-/  Low level disk interface modlue include file  R0.07   (C)ChaN, 2009
+/  Low level disk interface modlue include file   (C)ChaN, 2013
 /-----------------------------------------------------------------------*/
 
-#ifndef _DISKIO
+#ifndef _DISKIO_DEFINED
+#define _DISKIO_DEFINED
 
-#define _READONLY	0	/* 1: Read-only mode */
-#define _USE_IOCTL	1
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define _USE_WRITE	1	/* 1: Enable disk_write function */
+#define _USE_IOCTL	1	/* 1: Enable disk_ioctl fucntion */
 
 #include "integer.h"
+
 
 /* Status of Disk Functions */
 typedef BYTE	DSTATUS;
@@ -25,15 +31,12 @@ typedef enum {
 /*---------------------------------------*/
 /* Prototypes for disk control functions */
 
-BOOL assign_drives (int argc, char *argv[]);
-DSTATUS disk_initialize (BYTE);
-DSTATUS disk_status (BYTE);
-DRESULT disk_read (BYTE, BYTE*, DWORD, BYTE);
-#if	_READONLY == 0
-DRESULT disk_write (BYTE, const BYTE*, DWORD, BYTE);
-#endif
-DRESULT disk_ioctl (BYTE, BYTE, void*);
 
+DSTATUS disk_initialize (BYTE pdrv);
+DSTATUS disk_status (BYTE pdrv);
+DRESULT disk_read (BYTE pdrv, BYTE*buff, DWORD sector, BYTE count);
+DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, BYTE count);
+DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 
 
 /* Disk Status Bits (DSTATUS) */
@@ -42,19 +45,20 @@ DRESULT disk_ioctl (BYTE, BYTE, void*);
 #define STA_NODISK		0x02	/* No medium in the drive */
 #define STA_PROTECT		0x04	/* Write protected */
 
-/* Command code for disk_ioctrl() */
+/* Command code for disk_ioctrl fucntion */
 
-/* Generic command */
-#define CTRL_SYNC			0	/* Mandatory for write functions */
-#define GET_SECTOR_COUNT	1	/* Mandatory for only f_mkfs() */
-#define GET_SECTOR_SIZE		2
-#define GET_BLOCK_SIZE		3	/* Mandatory for only f_mkfs() */
-#define CTRL_POWER			4
-#define CTRL_LOCK			5
-#define CTRL_EJECT			6
+/* Generic command (used by FatFs) */
+#define CTRL_SYNC			0	/* Flush disk cache (for write functions) */
+#define GET_SECTOR_COUNT	1	/* Get media size (for only f_mkfs()) */
+#define GET_SECTOR_SIZE		2	/* Get sector size (for multiple sector size (_MAX_SS >= 1024)) */
+#define GET_BLOCK_SIZE		3	/* Get erase block size (for only f_mkfs()) */
+#define CTRL_ERASE_SECTOR	4	/* Force erased a block of sectors (for only _USE_ERASE) */
 
 /* Custom command for image file resizing */
 #define SET_SECTOR_COUNT	253
 
-#define _DISKIO
+#ifdef __cplusplus
+}
+#endif
+
 #endif

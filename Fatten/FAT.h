@@ -1,4 +1,9 @@
-#pragma once
+#ifndef _FAT_H_INCLUDED
+#define _FAT_H_INCLUDED
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define offsetof(s,m)   (size_t)&reinterpret_cast<const volatile char&>((((s *)0)->m))
 
@@ -39,3 +44,9 @@ struct Fat_Bootrecord {
 #endif
 
 extern char* imageFileName;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif//_FAT_H_INCLUDED
