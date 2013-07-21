@@ -4,6 +4,7 @@
 *.old
 *.ipch
 *.sdf
+*.opensdf
 
 UpgradeLog*.XML
 UpgradeLog*.htm
@@ -55,3 +56,4 @@ UpgradeLog*.htm
 
 /APILib/Debug
 /APILib/Release
+

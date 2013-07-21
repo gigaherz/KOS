@@ -101,26 +101,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <NASM Include="KMemory32.asm">
-      <Filter>Source Files\Memory</Filter>
-    </NASM>
-    <NASM Include="KInterrupt32.asm">
-      <Filter>Source Files\Interrupt</Filter>
-    </NASM>
-    <NASM Include="KCpu32.asm">
-      <Filter>Source Files\Cpu</Filter>
-    </NASM>
-    <NASM Include="KRuntime32.asm">
-      <Filter>Source Files\Runtime</Filter>
-    </NASM>
-    <NASM Include="KInterlocked32.asm">
-      <Filter>Source Files\Threading</Filter>
-    </NASM>
-    <NASM Include="KMain32.asm">
-      <Filter>Source Files</Filter>
-    </NASM>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Kernel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -177,6 +157,26 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
+    <NASM Include="KCpu32.asm">
+      <Filter>Source Files\Cpu</Filter>
+    </NASM>
+    <NASM Include="KInterlocked32.asm">
+      <Filter>Source Files\Threading</Filter>
+    </NASM>
+    <NASM Include="KInterrupt32.asm">
+      <Filter>Source Files\Interrupt</Filter>
+    </NASM>
+    <NASM Include="KMemory32.asm">
+      <Filter>Source Files\Memory</Filter>
+    </NASM>
+    <NASM Include="KRuntime32.asm">
+      <Filter>Source Files\Runtime</Filter>
+    </NASM>
+    <NASM Include="KMain32.asm">
+      <Filter>Source Files</Filter>
+    </NASM>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>

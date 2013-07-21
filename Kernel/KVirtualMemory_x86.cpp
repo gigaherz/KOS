@@ -320,7 +320,7 @@ void UnmapPage(UInt32 virtual_address)
 
 void MapMultiplePages(UInt32 virtual_address, UInt32 physical_address, UInt32 page_count, bool writable, bool userMode, bool global)
 {
-	for(int i=0;i<page_count;i++)
+	for(UInt32 i=0;i<page_count;i++)
 	{
 		MapPage(virtual_address,physical_address,writable,userMode, global);
 		virtual_address+=4096;

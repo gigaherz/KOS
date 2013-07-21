@@ -2,9 +2,8 @@
 
 /* This is a simple string array. It contains the message that
 *  corresponds to each and every exception. We get the correct
-*  message by accessing like:
-*  exception_message[interrupt_number] */
-KCString Exception_Message[] =
+*  message by accessing like: Interrupt_Unhandled[interrupt_number] */
+KCString Interrupt_Unhandled[48] =
 {
 	// 0 to 3
 	L"Division By Zero",
@@ -36,9 +35,14 @@ KCString Exception_Message[] =
 	L"Machine Check Failed",
 	L"Reserved",
 
-	L"Reserved", L"Reserved", L"Reserved", L"Reserved", // 20 to 23
-	L"Reserved", L"Reserved", L"Reserved", L"Reserved", // 24 to 27
-	L"Reserved", L"Reserved", L"Reserved", L"Reserved", // 28 to 31
+	// 20 to 23
+	L"Reserved", L"Reserved", L"Reserved", L"Reserved",
+
+	// 24 to 27
+	L"Reserved", L"Reserved", L"Reserved", L"Reserved",
+	 
+	// 28 to 31
+	L"Reserved", L"Reserved", L"Reserved", L"Reserved",
 
 	// 32 to 47 (PIC1 + PIC2)
 	L"Interrupt 0 (Timer) Unhandled",
@@ -83,7 +87,7 @@ void __cdecl ISR_Handle_Interrupt(Regs *regs)
 			*  infinite loop */
 			KSerialPrintF(L"WARNING: Irq %d not handled.", num);
 			KDisplayPrint(L"!\r\n");
-			//KDebugPrint(Exception_Message[num]);
+			//KDebugPrint(Interrupt_Unhandled[num]);
 			//KDebugPrint(L"' Exception. System Halted!\r\n");
 			//for (;;)
 			//{

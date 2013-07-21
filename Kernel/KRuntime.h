@@ -19,7 +19,9 @@ typedef const char* va_list;
 #define is_alpha(c) (is_lower(c)||is_upper(c))
 #define is_alnum(c) (is_alpha(c)||is_digit(c))
 
-#define offsetof(x,y) ((UIntPtr)&(((x*)0)->y))
+#ifndef NO_OFFSETOF
+#	define offsetof(x,y) ((UIntPtr)&(((x*)0)->y))
+#endif
 
 typedef void (__cdecl * cbpf_callback)(void *userdata, KCString data, int len);
 

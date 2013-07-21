@@ -1,3 +1,4 @@
+#define NO_OFFSETOF
 #include "Kernel.h"
 
 #define _INC_VADEFS
