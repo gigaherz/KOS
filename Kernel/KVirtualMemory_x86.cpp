@@ -354,8 +354,7 @@ void KVirtualAllocatorInit()
 	//KSerialPrint(L"\r\n3");
 	//MapMultiplePages(0x00180000, 0x00180000, 128, true, false, false);
 	//KSerialPrint(L"\r\n");
-
-
+	
 	// Map non-allocable stuff from the bottom of the ram into the upper 2gb of the kernel address space
 	KSerialPrint(L"Maping 2gb-based ranges...\r\n");
 	// map the first 512KB of memory

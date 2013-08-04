@@ -99,6 +99,15 @@
     <ClCompile Include="KSemaphore.cpp">
       <Filter>Source Files\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="KThread.cpp">
+      <Filter>Source Files\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="KFloppy.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="KVBE.cpp">
+      <Filter>Source Files\Drivers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Kernel.h">
@@ -153,6 +162,12 @@
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
     <ClInclude Include="KTypes.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KConstants.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KRingBuffer.h">
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
   </ItemGroup>

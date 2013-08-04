@@ -1,6 +1,9 @@
 #pragma once
 
-struct QueueItem // Abstract: anything could be used just as long as the first sizeof(QueueItem*) bytes at the pointer are the next pointer
+// Represents an item in a queue.
+// The actual items need to have enough space somewhere to hold the pointer to the next item.
+// The pointer offset is specified to the initialization function, and must be constant.
+struct QueueItem
 {
 	QueueItem* next;
 };

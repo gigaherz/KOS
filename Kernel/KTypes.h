@@ -33,3 +33,5 @@ typedef wchar_t Char, *KString;
 typedef const Char* KCString;
 
 #define NULL 0
+
+#define ARRAYSIZE(x) (sizeof(x)/sizeof((x)[0]))

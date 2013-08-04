@@ -60,3 +60,5 @@ struct __declspec(align(16)) KCpuFeatures
 };
 
 void KCpuDetectInit(KCpuFeatures& x86caps);
+
+void KCpuIdleWait();

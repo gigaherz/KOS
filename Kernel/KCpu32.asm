@@ -1,5 +1,10 @@
 
 	SEGMENT .text
+	
+	GLOBAL ?KCpuIdleWait@@YIXXZ
+?KCpuIdleWait@@YIXXZ:
+	HLT
+	RET
 
 	GLOBAL ?KCpuId@@YIHIAAUBaseRegs@@@Z
 ?KCpuId@@YIHIAAUBaseRegs@@@Z:

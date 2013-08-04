@@ -28,7 +28,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Standard|Win32'">
-    <OutDir>$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
     <IntDir>$(SolutionDir)\Temp\$(ProjectName)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <ExecutablePath>H:\Dev\Tools\nasm\;$(ExecutablePath)</ExecutablePath>
@@ -41,26 +41,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Standard|Win32'">
     <CustomBuildStep>
       <Message>Preparing floppy image...</Message>
-      <Command>%40echo off
-del success.txt
-
-copy "$(SolutionDir)Image\BootableFloppy.flp" "$(SolutionDir)Output.flp"
-IF ERRORLEVEL 1 GOTO error
-
-"$(OutDir)MultibootFix.exe" "$(TargetPath)"
-IF ERRORLEVEL 1 GOTO error
-
-"$(OutDir)Fatten.exe" "$(SolutionDir)Output.flp" /add "$(TargetPath)" $(TargetFileName)
-IF ERRORLEVEL 1 GOTO error
-
-echo 1 &gt; success.txt
-GOTO end
-
-:error
-echo ERROR executing post-build operations.
-
-:end
-</Command>
+      <Command>$(SolutionDir)\Tools\mkfloppy.cmd $(SolutionDir) $(TargetPath) $(OutDir)</Command>
       <Inputs>Fatten.exe;KMultibootFix.exe;%(Inputs)</Inputs>
       <Outputs>success.txt;%(Outputs)</Outputs>
     </CustomBuildStep>
@@ -97,13 +78,17 @@ echo ERROR executing post-build operations.
       <DataExecutionPrevention>false</DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions>/filealign:0x1000 %(AdditionalOptions)</AdditionalOptions>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KFloppy.cpp" />
     <ClCompile Include="KMain.cpp" />
+    <ClCompile Include="KThread.cpp" />
+    <ClCompile Include="KVBE.cpp" />
     <ClCompile Include="PEFile.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Standard|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -131,7 +116,9 @@ echo ERROR executing post-build operations.
     <ClCompile Include="KSemaphore.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KConstants.h" />
     <ClInclude Include="Kernel.h" />
+    <ClInclude Include="KRingBuffer.h" />
     <ClInclude Include="Multiboot.h" />
     <ClInclude Include="PEFile.h" />
     <ClInclude Include="KCpu.h" />

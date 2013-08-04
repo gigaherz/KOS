@@ -121,7 +121,7 @@ ResultCode KTimerAlloc(UInt32 interval, pTimerCallback timerCB, UInt32* timerID)
 
 	// pop from free head
 	timerFreeHead = timers[tid].next;
-	if(timerBusyHead < NUM_TIMERS)
+	if(timerFreeHead < NUM_TIMERS)
 		timers[timerFreeHead].prev = NUM_TIMERS;
 
 	// push into busy head

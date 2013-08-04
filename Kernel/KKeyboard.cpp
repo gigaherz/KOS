@@ -1,6 +1,7 @@
 // Pract5.cpp: define el punto de entrada de la aplicación de consola.
 //
 #include "Kernel.h"
+#include "KRingBuffer.h"
 
 const char KK_Table_LCase[]= 
 {
@@ -34,6 +35,8 @@ const char KK_Table_UCase[]=
 
 };
 
+DECLARE_RING(keyQueue, char, 128);
+
 bool keyStates[128] = {0};
 
 bool altPressed = false;
@@ -48,14 +51,14 @@ static void KK_DisableInterrupt()
 {
 	int a = KInterruptDisable();
 	KPortOutputB(0x21,KPortInputB(0x21)|2); // Mask Keyboard interrupt
-	if(a) KInterruptEnable();
+	if (a) KInterruptEnable();
 }
 
 static void KK_EnableInterrupt()
 {
 	int a = KInterruptDisable();
 	KPortOutputB(0x21,KPortInputB(0x21)&(~2)); // Unmask Keyboard interrupt
-	if(a) KInterruptEnable();
+	if (a) KInterruptEnable();
 }
 
 
@@ -90,7 +93,7 @@ static char KK_GetChar()
 	if(eventCode == 0)
 		return 0;
 
-	if(makeBreak==0) //si es apretar
+	if(makeBreak==0) // make
 	{
 		keyStates[scanCode] = false;
 
@@ -117,8 +120,10 @@ static char KK_GetChar()
 		{
 			ctrlPressed = true;
 		}
+
+		return scanCode;
 	}
-	else
+	else // break
 	{
 		keyStates[scanCode] = false;
 
@@ -134,45 +139,53 @@ static char KK_GetChar()
 		{
 			ctrlPressed = false;
 		}
-	}
 
-	return 0;
+		return 0;
+	}
+}
+
+static bool KK_HasKey()
+{
+	return RING_USED(keyQueue) > 0;
+}
+
+static char KK_DequeueKey()
+{
+	char t;
+	RING_DEQ(keyQueue, t);
+	return t;
 }
 
 static ResultCode __stdcall KK_InterruptHandler(Regs *regs)
 {
-	char t[2] = {
-		KK_GetChar(),
-		0
-	};
+	char t = KK_GetChar();
 
-	// TODO: Add chars to queue.
-
-	//if(t[0] > 0)
-	//{
-	//	if(t[0]<32)
-	//	{
-	//		KCString text=L"";
-	//		switch(t[0])
-	//		{
-	//		case 9: text=L"\\t"; break;
-	//		case 13: text=L"\\n"; break;
-	//		}
-	//		KDisplayPrint(L"Key Pressed: '");
-	//		KDisplayPrint(text);
-	//		KDisplayPrint(L"'.\r\n");
-	//	}
-	//	else KDisplayPrintF(L"Key Pressed: '%c'.\r\n",t[0]);
-	//}
+	if(t > 0)
+	{
+		if(RING_FREE(keyQueue) > 0)
+		{
+			RING_ENQ(keyQueue, t);
+		}
+		else
+		{
+			KDebugPrint(L"Queue full, keypress dropped.\r\n");
+		}
+	}
 
 	return 0;
 }
 
 void KKeyboardInit()
 {
+	KK_DisableInterrupt();
 	KInterruptRegisterIRQHandler(1, KK_InterruptHandler);
-//	KK_DisableInterrupt();
 	KK_EnableInterrupt();
+	RING_INIT(keyQueue);
+}
+
+bool KKeyboardHasInput()
+{
+	return KK_HasKey();
 }
 
 int KKeyboardReadChar()
@@ -181,8 +194,10 @@ int KKeyboardReadChar()
 
 	do 
 	{
-		__asm hlt;
-		code = KK_GetChar();
+		if(KK_HasKey())
+			return KK_DequeueKey();
+
+		KCpuIdleWait();
 	} while(code == 0);
 
 	return code;

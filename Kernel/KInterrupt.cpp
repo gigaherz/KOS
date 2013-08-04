@@ -80,19 +80,14 @@ void __cdecl ISR_Handle_Interrupt(Regs *regs)
 	{
 		if(Registered_Handlers[num]) // if the interrupt code has a registered handler, call it.
 			Registered_Handlers[num](regs);
-		else // if(num < 32)
+		else if(num < 32)
 		{
-			/* Display the description for the Exception that occurred.
-			*  In this tutorial, we will simply halt the system using an
-			*  infinite loop */
-			KSerialPrintF(L"WARNING: Irq %d not handled.", num);
-			KDisplayPrint(L"!\r\n");
-			//KDebugPrint(Interrupt_Unhandled[num]);
-			//KDebugPrint(L"' Exception. System Halted!\r\n");
-			//for (;;)
-			//{
-			//	__asm hlt 
-			//}
+			/* Display the description for the Exception that occurred. */
+			KSerialPrintF(L"WARNING: Exception %d not handled.\r\n", num);
+		}
+		else
+		{
+			KSerialPrintF(L"WARNING: Irq %d not handled.\r\n", num-32);
 		}
 
 		if(num >= 32)

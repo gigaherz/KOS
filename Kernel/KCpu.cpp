@@ -89,6 +89,7 @@ void KCpuDetectInit(KCpuFeatures& x86caps)
 
          }
       }
+
       /* detect multicore for amd cpu */
       if ((MaxCpuIdCommandId >= 0x80000008) && !KStrCmpA("AuthenticAMD",x86caps.VendorName))
       {

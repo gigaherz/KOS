@@ -1,6 +1,7 @@
 #pragma once
 
 #include "KTypes.h"
+#include "KConstants.h"
 #include "KInterlocked.h"
 #include "KLocks.h"
 #include "KRuntime.h"
@@ -17,6 +18,13 @@
 #include "KQueue.h"
 
 // Todo later
+
+// Function: KThreadGetCurrentThreadId
+// Description:
+//    Returns the ID for the currently executing thread.
+//    If the thread is a kernel thread, the top bit of the ID will be set.
+// Return Value: The ID for the currently executing thread.
 Int32 KThreadGetCurrentThreadId();
-void KThreadSuspend(Int32 threadId);
-void KThreadResume(Int32 threadId);
+
+ResultCode KThreadSuspend(Int32 threadId);
+ResultCode KThreadResume(Int32 threadId);

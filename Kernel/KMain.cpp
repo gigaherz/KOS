@@ -95,18 +95,26 @@ void KMain(MultibootInfo* mbinfo)
 	UInt32 nSeconds = 0;
 	while(true)
 	{
-		__asm hlt
-
-		UInt32 newTicks = KTimerGetTicks();
-		if((newTicks-oldTicks) >= 1000)
+		if(KKeyboardHasInput())
 		{
-			nSeconds++;
-
-			DateTime dt = KRTCGetDateTime();
-
 			KDisplayPrint(L"\r                                ");
-			KDisplayPrintF(L"\rA second has passed! %d // %02d:%02d:%02d",nSeconds, dt.hour, dt.minute, dt.second);
-			oldTicks = newTicks;
+			KDisplayPrintF(L"\rKey Pressed: %c\r\n", KKeyboardReadChar());
+		}
+		else
+		{
+			KCpuIdleWait();
+
+			UInt32 newTicks = KTimerGetTicks();
+			if((newTicks-oldTicks) >= 1000)
+			{
+				nSeconds++;
+
+				DateTime dt = KRTCGetDateTime();
+
+				KDisplayPrint(L"\r                                ");
+				KDisplayPrintF(L"\r%02d:%02d:%02d",nSeconds, dt.hour, dt.minute, dt.second);
+				oldTicks = newTicks;
+			}
 		}
 	}
 }

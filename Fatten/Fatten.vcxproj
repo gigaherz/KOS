@@ -41,12 +41,13 @@
     <_ProjectFileVersion>11.0.60315.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
     <IntDir>$(SolutionDir)\Temp\$(ProjectName)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Output\</OutDir>
     <IntDir>$(SolutionDir)\Temp\$(ProjectName)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
