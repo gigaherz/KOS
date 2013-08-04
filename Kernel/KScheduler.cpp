@@ -4,7 +4,7 @@
 
 struct ThreadInfo
 {
-	Regs regs;
+    Regs regs;
 };
 
 ThreadInfo threads[NUM_THREADS];

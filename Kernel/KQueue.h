@@ -5,15 +5,15 @@
 // The pointer offset is specified to the initialization function, and must be constant.
 struct QueueItem
 {
-	QueueItem* next;
+    QueueItem* next;
 };
 
 struct QueueInfo
 {
-	Int32 lock;
-	UIntPtr structOffset;
-	QueueItem* head;
-	QueueItem* tail;
+    Int32 lock;
+    UIntPtr structOffset;
+    QueueItem* head;
+    QueueItem* tail;
 };
 
 void KQueueInit(QueueInfo* l, int structOffset);

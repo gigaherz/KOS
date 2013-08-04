@@ -27,70 +27,70 @@
 
 Int32 KInterlockedAnd(Int32 volatile * var, Int32 add)
 {
-	return _InterlockedAnd((volatile long*)var, add);
+    return _InterlockedAnd((volatile long*)var, add);
 }
 
 Int8 KInterlockedAnd8(Int8 volatile* var, Int8 add)
 {
-	return _InterlockedAnd8((volatile char*)var, add);
+    return _InterlockedAnd8((volatile char*)var, add);
 }
 
 Int16 KInterlockedAnd16(Int16 volatile* var, Int16 add)
 {
-	return _InterlockedAnd16(var, add);
+    return _InterlockedAnd16(var, add);
 }
 
 Int32 KInterlockedOr(Int32 volatile* var, Int32 add)
 {
-	return _InterlockedOr((volatile long*)var, add);
+    return _InterlockedOr((volatile long*)var, add);
 }
 
 Int8 KInterlockedOr8(Int8 volatile* var, Int8 add)
 {
-	return _InterlockedOr8((volatile char*)var, add);
+    return _InterlockedOr8((volatile char*)var, add);
 }
 
 Int16 KInterlockedOr16(Int16 volatile* var, Int16 add)
 {
-	return _InterlockedOr16(var, add);
+    return _InterlockedOr16(var, add);
 }
 
 Int32 KInterlockedXor(Int32 volatile* var, Int32 add)
 {
-	return _InterlockedXor((volatile long*)var, add);
+    return _InterlockedXor((volatile long*)var, add);
 }
 
 Int8 KInterlockedXor8(Int8 volatile* var, Int8 add)
 {
-	return _InterlockedXor8((volatile char*)var, add);
+    return _InterlockedXor8((volatile char*)var, add);
 }
 
 Int16 KInterlockedXor16(Int16 volatile* var, Int16 add)
 {
-	return _InterlockedXor16(var, add);
+    return _InterlockedXor16(var, add);
 }
 
 Int32 KInterlockedIncrement(Int32 volatile* var)
 {
-	return _InterlockedIncrement((volatile long*)var);
+    return _InterlockedIncrement((volatile long*)var);
 }
 
 Int32 KInterlockedDecrement(Int32 volatile* var)
 {
-	return _InterlockedDecrement((volatile long*)var);
+    return _InterlockedDecrement((volatile long*)var);
 }
 
 Int32 KInterlockedExchange(Int32 volatile* var, Int32 _new)
 {
-	return _InterlockedExchange((volatile long*)var, _new);
+    return _InterlockedExchange((volatile long*)var, _new);
 }
 
 Int32 KInterlockedExchangeAdd(Int32 volatile* var, Int32 add)
 {
-	return _InterlockedExchangeAdd((volatile long*)var, add);
+    return _InterlockedExchangeAdd((volatile long*)var, add);
 }
 
 Int32 KInterlockedCompareExchange(Int32 volatile* var, Int32 _cmp, Int32 _new)
 {
-	return _InterlockedCompareExchange((volatile long*)var, _cmp, _new);
+    return _InterlockedCompareExchange((volatile long*)var, _cmp, _new);
 }
