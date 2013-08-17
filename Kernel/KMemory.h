@@ -24,3 +24,4 @@ UIntPtr KVirtualAllocatorAcquire(UInt32 num_pages, UInt32 ownerID);
 
 void KVirtualEnable();
 void KVirtualAllocatorInitFinish();
+

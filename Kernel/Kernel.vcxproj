@@ -79,6 +79,8 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions>/filealign:0x1000 %(AdditionalOptions)</AdditionalOptions>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>KernelStartup</EntryPointSymbol>
+      <Driver>NotSet</Driver>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -118,7 +120,10 @@
   <ItemGroup>
     <ClInclude Include="KConstants.h" />
     <ClInclude Include="Kernel.h" />
+    <ClInclude Include="KHandle.h" />
+    <ClInclude Include="KObject.h" />
     <ClInclude Include="KRingBuffer.h" />
+    <ClInclude Include="KVirtualMemory_x86.h" />
     <ClInclude Include="Multiboot.h" />
     <ClInclude Include="PEFile.h" />
     <ClInclude Include="KCpu.h" />

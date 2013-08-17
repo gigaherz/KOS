@@ -18,3 +18,32 @@ ResultCode KThreadResume(Int32 threadId)
     // TODO: Return OK if successful, or ThreadNotSuspended if the thread was not in a suspended state
     return NotImplemented;
 }
+
+void KThreadYield()
+{
+	// TODO: Yield to another thread, or return immediately if no other threads are ready
+}
+
+// TODO:
+
+Int32 KThreadCreate(/* process context, heap size, stack size */)
+{
+
+	return 0;
+}
+
+void KThreadSetAddress(/* changes the memory address of the next instruction to run */)
+{
+}
+
+void KThreadSetCpuContext(/* cpu context */)
+{
+}
+
+void KT_SaveCurrentState()
+{
+}
+
+void KT_RestoreState()
+{
+}

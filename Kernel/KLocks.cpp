@@ -9,7 +9,7 @@ void KSpinLock(Int32 volatile * lock)
         // wait until it becomes free before trying again
         while (*lock!=0)
         {
-            //KThreadYield();
+            KThreadYield();
         }
     }
 }

@@ -170,6 +170,15 @@
     <ClInclude Include="KRingBuffer.h">
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
+    <ClInclude Include="KHandle.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KObject.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KVirtualMemory_x86.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <NASM Include="KCpu32.asm">

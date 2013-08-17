@@ -20,8 +20,10 @@ typedef bool Bool;
 
 #ifdef _M_IX86
 typedef UInt32 UIntPtr;
+#define HANDLE_TOP 0x80000000
 #elif defined(_M_X64)
 typedef UInt64 UIntPtr;
+#define HANDLE_TOP 0x8000000000000000LL
 #endif
 
 typedef UInt32 ResultCode;

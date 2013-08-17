@@ -3,7 +3,7 @@
 	
 	EXTERN ?KMain@@YIXPAUMultibootInfo@@@Z
 
-	GLOBAL _NtProcessStartup
+	GLOBAL _KernelStartup
 	
 ;;multiboot_header:
 ;;	DD 0x1BADB002 ;; magic
@@ -13,14 +13,14 @@
 ;;	DD 0x00100000,						;; memory address where the code should start
 ;;	DD 0x00106000,						;; memory address where the code should end
 ;;	DD 0x00200000,						;; memory address for the end of the BSS segment
-;;	DD _NtProcessStartup,				;; entry point
+;;	DD _KernelStartup,				;; entry point
 ;;	DD 1,						;; display mode 1=text
 ;;	DD 80,						;; display width
 ;;	DD 25,						;; display height
 ;;	DD 0						;; display bit depth, 0 for text mode / don't care
 
 
-_NtProcessStartup:
+_KernelStartup:
 	;; Setup stack and make parameter visible to the KMain function
 	XOR ECX,ECX
 	CMP EAX, 0x2BADB002

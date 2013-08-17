@@ -190,16 +190,11 @@ bool KKeyboardHasInput()
 
 int KKeyboardReadChar()
 {
-    char code;
-
-    do
+    for(;;)
     {
         if (KK_HasKey())
             return KK_DequeueKey();
 
         KCpuIdleWait();
     }
-    while (code == 0);
-
-    return code;
 }

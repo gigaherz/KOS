@@ -2,7 +2,7 @@
 
 #include "Multiboot.h"
 
-extern "C" void __declspec(noreturn) __cdecl NtProcessStartup();
+extern "C" void __declspec(noreturn) __cdecl KernelStartup();
 
 void KMain(MultibootInfo* mbinfo);
 
@@ -17,7 +17,7 @@ const static MultibootHeader mbheader =
     0x00100000,
     0x00109000, // to be grown whenever the kernel size goes over it. extremely annoying.
     0x00300000, // 1mb of stack will be available from 0x300000 to 0x400000, for kernel use
-    (UInt32)(NtProcessStartup)-0x80000000, // fix for the base trick
+    (UInt32)(KernelStartup)-0x80000000, // fix for the base trick
     1,
     80,
     25,

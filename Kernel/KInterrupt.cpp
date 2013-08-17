@@ -227,16 +227,18 @@ static void InstallIDT(int mapHigh)
     int offset = 0x80000000;
     if (mapHigh)
         offset=0;
+
     for (int i=0; i<48; i++)
     {
         BuildIDTEntry(IDT+i, (UInt32)(ISR_Handler[i])-offset,0x08,PRESENT|RING_0|GATE_INTERRUPT);
     }
+
     for (int i=48; i<256; i++)
     {
         BuildIDTEntry(IDT+i, 0, 0, 0);
     }
 
-    LoadIDT(IDT+0x80000000-offset, sizeof(IDT)-1);
+    LoadIDT((char*)IDT-offset, sizeof(IDT)-1);
 }
 
 static void KInterruptRemapPICIrqs()

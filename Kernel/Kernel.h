@@ -28,3 +28,6 @@ Int32 KThreadGetCurrentThreadId();
 
 ResultCode KThreadSuspend(Int32 threadId);
 ResultCode KThreadResume(Int32 threadId);
+
+
+void KThreadYield();
