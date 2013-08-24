@@ -13,15 +13,10 @@ void KPhysicalAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID);
 
 //////////////////////////////////////////////////////////////////////////
 // Virtual Memory
-void KVirtualAllocatorInit();
-
-UIntPtr KVirtualAllocatorReserve(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages);
-void KVirtualAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID);
-
-UIntPtr KVirtualAllocatorMap(UIntPtr virtual_base, UIntPtr physical_base, UInt32 page_count);
-
-UIntPtr KVirtualAllocatorAcquire(UInt32 num_pages, UInt32 ownerID);
-
+void KVirtualBeginInit();
+void KVirtualFinishInit();
 void KVirtualEnable();
-void KVirtualAllocatorInitFinish();
 
+UIntPtr KVirtualReserve(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages);
+UIntPtr KVirtualAcquire(UInt32 num_pages, UInt32 ownerID);
+void KVirtualRelease(UIntPtr alloc_base, UInt32 ownerID);

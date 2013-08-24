@@ -98,7 +98,9 @@
       <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Standard|Win32'">All</AssemblerOutput>
     </ClCompile>
     <ClCompile Include="KPhysicalMemoryAllocator.cpp" />
-    <ClCompile Include="KVirtualMemory_x86.cpp" />
+    <ClCompile Include="KVirtualMemory_x86.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Standard|Win32'">AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
     <ClCompile Include="KDisplay.cpp" />
     <ClCompile Include="KKeyboard.cpp" />
     <ClCompile Include="KRealTimeClock.cpp" />

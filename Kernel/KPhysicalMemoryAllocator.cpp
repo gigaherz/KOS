@@ -5,12 +5,9 @@
 
 struct AllocEntry
 {
-UInt32 BlockSize :
-    8; // bytes = 4kb << size
-UInt32 Flags     :
-    8;
-UInt32 OwnerID   :
-    16;
+	UInt32 BlockSize : 8; // bytes = 4kb << size
+	UInt32 Flags     : 8;
+	UInt32 OwnerID   : 16;
     UIntPtr AllocBase;
 } *AllocationHeader;
 
@@ -68,7 +65,7 @@ void KAllocatorMergeBuddies(bool showDebug=true) // Does NOT defragment memory.
 #endif
 }
 
-void KPhysicalAllocatorInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size)
+void KAllocatorInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size)
 {
     UInt32 FirstFreePage = 0x00400000;
 
@@ -119,7 +116,7 @@ void KPhysicalAllocatorInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt
 #endif
 }
 
-UIntPtr KPhysicalAllocatorAcquire(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages)
+UIntPtr KAllocatorAcquire(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages)
 {
     UInt32 minWidth = LastPageNumber;
     UInt32 minWidthIdx = 0xFFFFFFF;
@@ -178,7 +175,7 @@ UIntPtr KPhysicalAllocatorAcquire(UInt32 num_pages, UInt32 ownerID, UInt32* allo
     return 0;
 }
 
-void KPhysicalAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID)
+void KAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID)
 {
     int first_page = alloc_base >> 12;
 

@@ -56,7 +56,6 @@ void InstallGDT()
     BuildGDTEntry(GDT+0, 0,0x00000000,0x00,0x00);
 
     /* Code Segment descriptor */
-    //BuildGDTEntry(GDT+1, 0,0xFFFFFFFF,ACCESS(1,0,1,TYPE_RW|TYPE_EX),GRANULARITY(1,1));
     BuildGDTEntry(GDT+1,
                   0x00000000,
                   0xFFFFFFFF,
@@ -77,7 +76,7 @@ void InstallGDT()
 
     // TODO: Add ring3 segment descriptors
 
-    FlushGDT(&GDT, sizeof(GDT)-1); // asm code
+    FlushGDT(&GDT, sizeof(GDT)-1);
 }
 
 void KMemoryInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size)
@@ -85,11 +84,11 @@ void KMemoryInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size
     KSerialPrint(L"Initializing Physical allocator...\r\n");
     KPhysicalAllocatorInit(low_mem, high_mem, map_ptr, map_size);
     KSerialPrint(L"Initializing Virtual memory...\r\n");
-    KVirtualAllocatorInit();
+    KVirtualBeginInit();
     KSerialPrint(L"Enabling Virtual memory...\r\n");
     KVirtualEnable();
     KSerialPrint(L"Installing new GDT...\r\n");
     InstallGDT();
-    KVirtualAllocatorInitFinish();
+    KVirtualFinishInit();
     KSerialPrint(L"GDT installed.\r\n");
 }

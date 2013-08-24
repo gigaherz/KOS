@@ -103,7 +103,7 @@ void MapMultiplePages(UInt32 virtual_address, UInt32 physical_address, UInt32 pa
     }
 }
 
-void KVirtualAllocatorInit()
+void KVirtualBeginInit()
 {
     page_directory = (PageDirectory32 *)0x80280000;
 
@@ -126,7 +126,7 @@ void KVirtualAllocatorInit()
     KSerialPrint(L"Done mapping.\r\n");
 }
 
-void KVirtualAllocatorInitFinish()
+void KVirtualFinishInit()
 {
 
 }
@@ -135,18 +135,11 @@ void KVirtualEnable()
 {
     WriteCR3((UInt32)page_directory);
 
-    volatile UInt32 oldCR0 = ReadCR0();
+	UInt32 oldCR0 = ReadCR0();
 
-    WriteCR0(oldCR0 | CR0_PAGING); // set the paging bit in CR0 to 1
-	
-    KDebugPrintF(L"Old CR0: 0x%08x\r\n",oldCR0);
-
-    // go celebrate or something 'cause PAGING IS ENABLED!!!!!!!!!!
+    WriteCR0(oldCR0 | CR0_PAGING);	
 }
 
-UIntPtr KVirtualAllocatorReserve(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages);
-void KVirtualAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID);
-
-UIntPtr KVirtualAllocatorMap(UIntPtr virtual_base, UIntPtr physical_base, UInt32 page_count);
-
-UIntPtr KVirtualAllocatorAcquire(UInt32 num_pages, UInt32 ownerID);
+UIntPtr KVirtualReserve(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages);
+UIntPtr KVirtualAcquire(UInt32 num_pages, UInt32 ownerID);
+void KVirtualRelease(UIntPtr alloc_base, UInt32 ownerID);

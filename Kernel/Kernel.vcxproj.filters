@@ -108,6 +108,9 @@
     <ClCompile Include="KVBE.cpp">
       <Filter>Source Files\Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="AvlTree.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Kernel.h">
