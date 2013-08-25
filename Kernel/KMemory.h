@@ -22,3 +22,5 @@ void KSimpleAllocatorInit(UInt32 baseAddress, UInt32 *pageCount);
 UIntPtr KVirtualReserve(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages);
 UIntPtr KVirtualAcquire(UInt32 num_pages, UInt32 ownerID);
 void KVirtualRelease(UIntPtr alloc_base, UInt32 ownerID);
+
+UIntPtr KVirtualAlloc(UIntPtr allocSize, UInt32 ownerID);

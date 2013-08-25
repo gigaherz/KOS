@@ -13,7 +13,7 @@ const static MultibootHeader mbheader =
     0x00000000-0x1BADB002-0x00010007,
     ((UInt32)&mbheader)-0x80000000, // fix for the base trick
     0x00100000,
-    0x00109000, // to be grown whenever the kernel size goes over it. extremely annoying.
+    0x0010a000, // to be grown whenever the kernel size goes over it. extremely annoying.
     0x00300000, // 1mb of stack will be available from 0x300000 to 0x400000, for kernel use
     (UInt32)(KernelStartup)-0x80000000, // fix for the base trick
     1,
@@ -89,6 +89,16 @@ void KMain(MultibootInfo* mbinfo)
     KDebugPrint(L"OK.\r\n");
 
     KRTCInit();
+
+	UInt32 addr = KVirtualAcquire(1, 0);
+
+	KDebugPrintF(L"Allocated one page at %x..\r\n", addr);
+
+	int * numbers = (int*) addr;
+
+	numbers[0] = addr - 0x80000000;
+
+	KDebugPrintF(L"The Number in the item 0 is %x..\r\n", numbers[0]);
 
     KDisplayPrint(L"Entering idleness loop...\r\n");
     KDisplayPrint(L"(you can press some keys to test the interrupt system...)\r\n");

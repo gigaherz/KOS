@@ -37,6 +37,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\ObjectManager">
+      <UniqueIdentifier>{f17ef5b4-a738-4856-a79a-e46a20f811d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KMain.cpp">
@@ -108,8 +111,14 @@
     <ClCompile Include="KVBE.cpp">
       <Filter>Source Files\Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="AvlTree.cpp">
-      <Filter>Source Files\Memory</Filter>
+    <ClCompile Include="KSimpleAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KPool.cpp">
+      <Filter>Source Files\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="KObjectManager.cpp">
+      <Filter>Source Files\ObjectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +189,9 @@
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
     <ClInclude Include="KVirtualMemory_x86.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KPool.h">
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
   </ItemGroup>

@@ -141,6 +141,8 @@ void KVirtualBeginInit()
 
 }
 
+void KVirtualMarkUsed(UInt32 start, UInt32 count);
+
 void KVirtualFinishInit()
 {
 	KSerialPrint(L"Preparing the memory allocator...\r\n");
@@ -153,6 +155,8 @@ void KVirtualFinishInit()
 	KSimpleAllocatorInit(0x80200000, &neededPages);
 
 	MapMultiplePages(0x80401000, 0x00401000, neededPages - 1, true, false, true);
+
+	KVirtualMarkUsed(0x80000000, 0x400000);
 
 	KSerialPrint(L"Memory allocator ready.\r\n");
 }

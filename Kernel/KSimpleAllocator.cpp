@@ -218,12 +218,14 @@ void AddUsed(MemoryArea *area)
 // removes count pages from the beginning of the area
 MemoryArea *Take(MemoryArea *area, UInt32 count)
 {
+	KAssert(area->size >= count);
+
 	MemoryArea *newArea = GetUnused();
 
 	newArea->base = area->base;
 	newArea->size = count;
 
-	area->base += count;
+	area->base += count * 4096;
 	area->size -= count;
 
 	return newArea;
@@ -231,6 +233,8 @@ MemoryArea *Take(MemoryArea *area, UInt32 count)
 
 void KVirtualMarkUsed(UInt32 start, UInt32 count)
 {
+	KSerialPrintF(L"Marking memory at %x, size %x...\r\n", start, count * 4096);
+
 	MemoryArea *area = FindFreeOverlapping(start, count);
 
 	if (area == NULL)
@@ -238,13 +242,17 @@ void KVirtualMarkUsed(UInt32 start, UInt32 count)
 		
 	KAssert(area->base <= start && area->base + area->size <= start + count);
 
+	KSerialPrintF(L"Got area at %x, size %x...\r\n", area->base, area->size * 4096);
+
 	RemoveFree(area);
 
 	if (area->base < start)
 	{
-		MemoryArea *newArea = Take(area, start - area->base);
+		MemoryArea *newArea = Take(area, (start - area->base) / 4096);
 
 		AddFree(newArea);
+
+		KSerialPrintF(L"Free area at %x, size %x...\r\n", newArea->base, newArea->size * 4096);
 	}
 
 	MemoryArea *usedArea = area;
@@ -254,9 +262,13 @@ void KVirtualMarkUsed(UInt32 start, UInt32 count)
 		usedArea = Take(area, count);
 
 		AddFree(area);
+
+		KSerialPrintF(L"Free area at %x, size %x...\r\n", area->base, area->size * 4096);
 	}
 
 	AddUsed(usedArea);
+
+	KSerialPrintF(L"Used area at %x, size %x...\r\n", usedArea->base, usedArea->size * 4096);
 }
 
 void KSimpleAllocatorInit(UInt32 baseAddress, UInt32 *pageCount)
@@ -286,6 +298,8 @@ UIntPtr KVirtualAcquire(UInt32 count, UInt32 ownerID)
 {
 	MemoryArea *area = FindFreeBySize(count);
 
+	KDebugPrintF(L"Best-fit area at %x, size %x. Requested %x...\r\n", area->base, area->size * 4096, count * 4096);
+
 	if (area == NULL)
 	{
 		return 0;
@@ -304,6 +318,8 @@ UIntPtr KVirtualAcquire(UInt32 count, UInt32 ownerID)
 
 	AddUsed(usedArea);
 
+	KDebugPrintF(L"Acquired area at %x, size %x...\r\n", usedArea->base, usedArea->size * 4096);
+
 	UInt32 actualCount;
 
 	UInt32 physicalBase = KPhysicalAllocatorAcquire(count, ownerID, &actualCount);
@@ -314,3 +330,10 @@ UIntPtr KVirtualAcquire(UInt32 count, UInt32 ownerID)
 }
 
 void KVirtualRelease(UIntPtr alloc_base, UInt32 ownerID);
+
+UIntPtr KVirtualAlloc(UIntPtr allocSize, UInt32 ownerID)
+{
+	UInt32 numPages = (allocSize + 4095) / 4096;
+
+	return KVirtualAcquire(numPages, ownerID);
+}

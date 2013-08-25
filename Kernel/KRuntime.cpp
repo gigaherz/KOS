@@ -242,7 +242,7 @@ void KUtoStr(KString dest, int len, UInt32 num)
 void KHtoStr(KString dest, int len, UInt32 num)
 {
     // part 1: convert
-    int temp = num;
+    UInt32 temp = num;
     int digits = 0;
     Char *ptr = dest;
 
@@ -252,8 +252,8 @@ void KHtoStr(KString dest, int len, UInt32 num)
         temp >>= 4;
 
         if (tnum<10)
-            *(ptr++)='0'+tnum;
-        else *(ptr++)='A'+tnum-10;
+            *(ptr++)=L'0'+tnum;
+        else *(ptr++)=L'A'+tnum-10;
 
         digits++;
     }
@@ -305,6 +305,24 @@ int __cdecl KSimplePrintF(cbpf_callback cb, void *userdata, KCString fmt, va_lis
             {
                 continue;
             }
+
+			if (*efmt == 's')
+			{
+				if (pbuf > buf)
+				{
+					cb(userdata, buf, pbuf - buf);
+					pbuf = buf;
+					plen = sizeof(buf);
+				}
+
+				KCString str = va_arg(list, KCString);
+				int len = KStrLen(str);
+
+				cb(userdata, str, len);
+
+				fmt = efmt + 1;
+				continue;
+			}
 
             switch (*efmt)
             {

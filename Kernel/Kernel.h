@@ -15,6 +15,8 @@
 #include "KInterrupt.h"
 #include "KRealTimeClock.h"
 
+#include "KPool.h"
+
 #include "KQueue.h"
 
 #include "Multiboot.h"

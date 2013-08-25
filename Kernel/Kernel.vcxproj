@@ -89,6 +89,8 @@
   <ItemGroup>
     <ClCompile Include="KFloppy.cpp" />
     <ClCompile Include="KMain.cpp" />
+    <ClCompile Include="KObjectManager.cpp" />
+    <ClCompile Include="KPool.cpp" />
     <ClCompile Include="KSimpleAllocator.cpp" />
     <ClCompile Include="KThread.cpp" />
     <ClCompile Include="KVBE.cpp" />
@@ -125,6 +127,7 @@
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="KHandle.h" />
     <ClInclude Include="KObject.h" />
+    <ClInclude Include="KPool.h" />
     <ClInclude Include="KRingBuffer.h" />
     <ClInclude Include="KVirtualMemory_x86.h" />
     <ClInclude Include="Multiboot.h" />
