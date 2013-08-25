@@ -6,6 +6,7 @@ void MapMultiplePages(UInt32 virtual_address, UInt32 physical_address, UInt32 pa
 //
 //  Virtual Memory Allocator
 //
+// TODO: Replace the linked lists with AVL trees
 
 struct MemoryArea {
 	UInt32    base;
@@ -323,6 +324,8 @@ UIntPtr KVirtualAcquire(UInt32 count, UInt32 ownerID)
 	UInt32 actualCount;
 
 	UInt32 physicalBase = KPhysicalAllocatorAcquire(count, ownerID, &actualCount);
+
+	KDebugPrintF(L"Acquired physical memory at %x, size %x...\r\n", physicalBase, actualCount * 4096);
 
 	MapMultiplePages(usedArea->base, physicalBase, count, true, false, true);
 	
