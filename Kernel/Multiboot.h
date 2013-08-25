@@ -21,12 +21,12 @@ struct MultibootHeader
     UInt32 	magic;			// required
     UInt32 	flags;			// required
     UInt32 	checksum;		// required
-    UInt32 	header_addr;	// if flags[16] is set
-    UInt32 	load_addr;		// if flags[16] is set
-    UInt32 	load_end_addr;	// if flags[16] is set
-    UInt32 	bss_end_addr;	// if flags[16] is set
-    UInt32 	entry_addr;		// if flags[16] is set
-    UInt32 	mode_type;		// if flags[2] is set
+    UInt32 	headerAddr;		// if flags[16] is set
+    UInt32 	loadAddr;		// if flags[16] is set
+    UInt32 	loadEndAddr;	// if flags[16] is set
+    UInt32 	bssEndAddr;		// if flags[16] is set
+    UInt32 	entryAddr;		// if flags[16] is set
+    UInt32 	modeType;		// if flags[2] is set
     UInt32 	width;			// if flags[2] is set
     UInt32 	height;			// if flags[2] is set
     UInt32 	depth;			// if flags[2] is set
@@ -37,57 +37,57 @@ struct MultibootInfo
 {
     UInt32 flags;
 
-    UInt32 mem_lower;
-    UInt32 mem_upper;
+    UInt32 memLower;
+    UInt32 memUpper;
 
-    UInt32 boot_device;
+    UInt32 bootDevice;
 
-    UInt32 cmdline;
+    UInt32 cmdLine;
 
-    UInt32 mods_count;
-    UInt32 mods_addr;
+    UInt32 modsCount;
+    UInt32 modsAddr;
 
     UInt32 syms[3];
 
-    UInt32 mmap_length;
-    UInt32 mmap_addr;
+    UInt32 mmapLength;
+    UInt32 mmapAddr;
 
-    UInt32 drives_length;
-    UInt32 drives_addr;
+    UInt32 drivesLength;
+    UInt32 drivesAddr;
 
-    UInt32 config_table;
+    UInt32 configTable;
 
-    UInt32 boot_loader_name;
+    UInt32 bootloaderName;
 
-    UInt32 apm_table;
+    UInt32 apmTable;
 
-    UInt32 vbe_control_info;
-    UInt32 vbe_mode_info;
-    UInt32 vbe_mode;
-    UInt32 vbe_interface_seg;
-    UInt32 vbe_interface_off;
-    UInt32 vbe_interface_len;
+    UInt32 vbeControlInfo;
+    UInt32 vbeModeInfo;
+    UInt32 vbeMode;
+    UInt32 vbeInterfaceSeg;
+    UInt32 vbeInterfaceOff;
+    UInt32 vbeInterfaceLen;
 
 };
 
 /* The module structure. */
-struct Module
+struct MultibootModule
 {
-    UInt32 mod_start;
-    UInt32 mod_end;
+    UInt32 modStart;
+    UInt32 modEnd;
     UInt32 string;
     UInt32 reserved;
 } ;
 
 /* The memory map. Be careful that the offset 0 is base_addr_low
 but no size. */
-struct MemoryMap
+struct MultibootMemoryMap
 {
     UInt32 size;
-    UInt32 base_addr_low;
-    UInt32 base_addr_high;
-    UInt32 length_low;
-    UInt32 length_high;
+    UInt32 baseAddrLow;
+    UInt32 baseAddrHigh;
+    UInt32 lengthLow;
+    UInt32 lengthHigh;
     UInt32 type;
 };
 

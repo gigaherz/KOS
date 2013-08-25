@@ -1,7 +1,5 @@
 #include "Kernel.h"
 
-#include "Multiboot.h"
-
 extern "C" void __declspec(noreturn) __cdecl KernelStartup();
 
 void KMain(MultibootInfo* mbinfo);
@@ -51,17 +49,20 @@ void KMain(MultibootInfo* mbinfo)
 
     if (mbinfo->flags & 1)
     {
-        LM = mbinfo->mem_lower;
-        HM = mbinfo->mem_upper;
+        LM = mbinfo->memLower;
+        HM = mbinfo->memUpper;
     }
 
-    MemoryMap *map = NULL;
+	MultibootMemoryMap *map = NULL;
+	UInt32 mapLength = 0;
+
     if (mbinfo->flags & (1<<6))
     {
-        map = (MemoryMap *)mbinfo->mmap_addr;
+		map = (MultibootMemoryMap *) mbinfo->mmapAddr;
+		mapLength = mbinfo->mmapLength;
     }
 
-    KMemoryInit(LM, HM, map, mbinfo->mmap_length);
+    KMemoryInit(LM, HM, map, mapLength);
     KSerialPrint(L"OK.\r\n");
 
     KSerialPrint(L"Re-Initializing Interrupt Manager (high)... ");

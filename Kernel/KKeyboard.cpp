@@ -3,7 +3,7 @@
 #include "Kernel.h"
 #include "KRingBuffer.h"
 
-const char KK_Table_LCase[]=
+const char KK_Table_LCase[128]=
 {
     0, 27, //1
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '\'', '~', '\b', // 14
@@ -19,7 +19,7 @@ const char KK_Table_LCase[]=
 
 };
 
-const char KK_Table_UCase[]=
+const char KK_Table_UCase[128] =
 {
     0, 27, //1
     '!', '"', '#', '$', '%', '&', '/', '(', ')', '=', '?',  '\\', '\b', // 14
@@ -86,9 +86,9 @@ static char KK_WaitBufferCode()
 
 static char KK_GetChar()
 {
-    char eventCode = KK_WaitBufferCode();
-    char makeBreak = (eventCode & 0x80);
-    char scanCode = (eventCode & 0x7f);
+	int eventCode = KK_WaitBufferCode();
+    bool makeBreak = (eventCode & 0x80) != 0;
+    int scanCode = (eventCode & 0x7f);
 
     if (eventCode == 0)
         return 0;

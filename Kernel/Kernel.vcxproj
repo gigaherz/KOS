@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Standard|Win32">
       <Configuration>Standard</Configuration>
@@ -15,7 +15,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Standard|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClCompile Include="KFloppy.cpp" />
     <ClCompile Include="KMain.cpp" />
+    <ClCompile Include="KSimpleAllocator.cpp" />
     <ClCompile Include="KThread.cpp" />
     <ClCompile Include="KVBE.cpp" />
     <ClCompile Include="PEFile.cpp">

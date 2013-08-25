@@ -3,6 +3,8 @@
 
 volatile PageDirectory32* page_directory;
 
+Bool pagingEnabled = false;
+
 void ClearPageEntry(volatile PageEntry32* entry)
 {
     entry->whole = 0;
@@ -72,7 +74,6 @@ volatile PageEntry32* CreatePagePath(UInt32 address)
     return &table->entry[pageNumber];
 }
 
-
 void MapPage(UInt32 virtual_address, UInt32 physical_address, bool writable, bool userMode, bool global)
 {
     virtual_address &= 0xFFFFF000;
@@ -81,7 +82,8 @@ void MapPage(UInt32 virtual_address, UInt32 physical_address, bool writable, boo
 
     SetPageEntry(entry,physical_address,writable,userMode,global);
 
-	InvalidateTlbEntry(virtual_address);
+	if (pagingEnabled)
+		InvalidateTlbEntry(virtual_address);
 }
 
 void UnmapPage(UInt32 virtual_address)
@@ -91,6 +93,9 @@ void UnmapPage(UInt32 virtual_address)
         return;
 
     ClearPageEntry(entry);
+
+	if (pagingEnabled)
+		InvalidateTlbEntry(virtual_address);
 }
 
 void MapMultiplePages(UInt32 virtual_address, UInt32 physical_address, UInt32 page_count, bool writable, bool userMode, bool global)
@@ -101,6 +106,15 @@ void MapMultiplePages(UInt32 virtual_address, UInt32 physical_address, UInt32 pa
         virtual_address+=4096;
         physical_address+=4096;
     }
+}
+
+void MapMultiplePages2(UInt32 virtual_address, UInt32* physical_addresses, UInt32 page_count, bool writable, bool userMode, bool global)
+{
+	for (UInt32 i = 0; i < page_count; i++)
+	{
+		MapPage(virtual_address, physical_addresses[i], writable, userMode, global);
+		virtual_address += 4096;
+	}
 }
 
 void KVirtualBeginInit()
@@ -124,11 +138,23 @@ void KVirtualBeginInit()
     MapMultiplePages(0x80180000, 0x00180000, 128, true, false, true);
 
     KSerialPrint(L"Done mapping.\r\n");
+
 }
 
 void KVirtualFinishInit()
 {
+	KSerialPrint(L"Preparing the memory allocator...\r\n");
 
+	UInt32 neededPages = 0;
+
+	// see KMain: 
+	MapMultiplePages(0x80400000, 0x00400000, 1, true, false, true);
+
+	KSimpleAllocatorInit(0x80200000, &neededPages);
+
+	MapMultiplePages(0x80401000, 0x00401000, neededPages - 1, true, false, true);
+
+	KSerialPrint(L"Memory allocator ready.\r\n");
 }
 
 void KVirtualEnable()
@@ -139,7 +165,3 @@ void KVirtualEnable()
 
     WriteCR0(oldCR0 | CR0_PAGING);	
 }
-
-UIntPtr KVirtualReserve(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages);
-UIntPtr KVirtualAcquire(UInt32 num_pages, UInt32 ownerID);
-void KVirtualRelease(UIntPtr alloc_base, UInt32 ownerID);

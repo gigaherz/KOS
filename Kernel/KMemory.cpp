@@ -88,7 +88,7 @@ void KMemoryInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size
     KSerialPrint(L"Enabling Virtual memory...\r\n");
     KVirtualEnable();
     KSerialPrint(L"Installing new GDT...\r\n");
-    InstallGDT();
+	InstallGDT();
+	KSerialPrint(L"GDT installed.\r\n");
     KVirtualFinishInit();
-    KSerialPrint(L"GDT installed.\r\n");
 }

@@ -17,6 +17,8 @@
 
 #include "KQueue.h"
 
+#include "Multiboot.h"
+
 // Todo later
 
 // Function: KThreadGetCurrentThreadId

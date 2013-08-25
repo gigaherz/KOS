@@ -1,5 +1,4 @@
 #include "Kernel.h"
-#include "Multiboot.h"
 
 // This is a simple allocator which does NOT yet use the x86 MMU
 
@@ -65,8 +64,10 @@ void KAllocatorMergeBuddies(bool showDebug=true) // Does NOT defragment memory.
 #endif
 }
 
-void KAllocatorInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size)
+void KPhysicalAllocatorInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_size)
 {
+	MultibootMemoryMap *memoryMap = (MultibootMemoryMap *) map_ptr;
+
     UInt32 FirstFreePage = 0x00400000;
 
     KDebugPrintF(L"Low Mem is %d KB, High Mem is %d KB\r\n", low_mem, high_mem);
@@ -116,7 +117,7 @@ void KAllocatorInit(UInt32 low_mem, UInt32 high_mem, void *map_ptr, UInt32 map_s
 #endif
 }
 
-UIntPtr KAllocatorAcquire(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages)
+UIntPtr KPhysicalAllocatorAcquire(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pages)
 {
     UInt32 minWidth = LastPageNumber;
     UInt32 minWidthIdx = 0xFFFFFFF;
@@ -175,7 +176,7 @@ UIntPtr KAllocatorAcquire(UInt32 num_pages, UInt32 ownerID, UInt32* allocated_pa
     return 0;
 }
 
-void KAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID)
+void KPhysicalAllocatorRelease(UIntPtr alloc_base, UInt32 ownerID)
 {
     int first_page = alloc_base >> 12;
 
