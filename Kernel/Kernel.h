@@ -14,8 +14,11 @@
 #include "KTimer.h"
 #include "KInterrupt.h"
 #include "KRealTimeClock.h"
+#include "KObject.h"
 
 #include "KPool.h"
+
+#include "KAvlTree.h"
 
 #include "KQueue.h"
 

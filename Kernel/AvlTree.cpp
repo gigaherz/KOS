@@ -13,15 +13,6 @@ struct AvlTree {
 	Byte nodes[0];
 };
 
-// AVL Tree Implementation in C
-//An AVL tree is a self-FixBalance binary search tree. It was invented by G.M. Adelson-Velski and E.M. Landis. In an AVL tree, heights of the two paired subtrees of any node differ by at most one and maintain an O(logn) search time. An AVL tree has the following properties:
-//     1. Every sub-tree is an AVL tree.
-//     2. The sub-trees of every node differ in height by at most one.
-//The balance factor of a node is the height of its left subtree minus the height of its right subtree (sometimes opposite) and a node with balance factor 1, 0, or ?1 is considered balanced. A node with any other balance factor is considered unbalanced and requires rebalancing the tree. The balance factor is either stored directly at each node or computed from the heights of the subtrees. The following is an example for a balanced tree.
-//
-//
-//Balance factor of root node = height of left sub-tree - height of right sub-tree. Here, "4" is the root node. Its balance factor =0.
-//
 static Int32 FindHeight(TreeNode *node)
 {
     if (node != NULL)

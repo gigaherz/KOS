@@ -111,13 +111,19 @@
     <ClCompile Include="KVBE.cpp">
       <Filter>Source Files\Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="KSimpleAllocator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="KPool.cpp">
       <Filter>Source Files\ObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="KObjectManager.cpp">
+      <Filter>Source Files\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="KAvlTree.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="KSimpleAllocator.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="KPoolTree.cpp">
       <Filter>Source Files\ObjectManager</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,6 +198,9 @@
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
     <ClInclude Include="KPool.h">
+      <Filter>Header Files\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="KAvlTree.h">
       <Filter>Header Files\Parts</Filter>
     </ClInclude>
   </ItemGroup>

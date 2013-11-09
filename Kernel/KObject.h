@@ -19,23 +19,24 @@
  * Directory
  */
 
+///////////////////////////////////////////////////////////////////////////////
+// Object Manager
+//
+
+ResultCode ClassRegister(KCString name, UIntPtr objectSize, UIntPtr reserved_metadata, UInt32& classID);
+ResultCode ClassGetByName(KCString name);
+
+ResultCode ObjectAllocate(UInt32 ownerID, KCString name, UInt32 classID, Handle& object);
+ResultCode ObjectRelease(Handle object);
+
+ResultCode ObjectOpenExisting(KCString name, Handle& object);
+
+ResultCode ObjectCallMethod(Handle object, UInt32 methodIndex, UIntPtr inputData, UIntPtr inputSize, UIntPtr outputData, UIntPtr outputSize);
+
+ResultCode ObjectWait(Handle object);
+ResultCode ObjectSignal(Handle object);
+
 /*
-
-Object Manager:
-
-	ObjectAllocate
-	ObjectOpenExisting
-	ObjectCallMethod
-	ObjectRelease
-
-	ObjectWait
-	ObjectSignal
-
-	ObjectGetOwner
-	ObjectSetOwner
-
-	ObjectGetAccessList
-	ObjectSetAccessList
 
 Specialized Object Methods:
 

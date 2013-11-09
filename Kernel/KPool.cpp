@@ -1,11 +1,11 @@
 #include "Kernel.h"
 
-UInt32 IndexOf(PoolHeader *hdr, void *element)
+UInt32 KPoolIndexOf(PoolHeader *hdr, void *element)
 {
 	return (((UInt8*) element - (UInt8*) &(hdr->elements[hdr->poolSize]))) / hdr->elementSize;
 }
 
-void* ElementAt(PoolHeader *hdr, UInt32 index)
+void* KPoolElementAt(PoolHeader *hdr, UInt32 index)
 {
 	return (UInt8*) &(hdr->elements[hdr->poolSize]) + index * hdr->elementSize;
 }
@@ -24,7 +24,7 @@ PoolHeader *KPoolAllocate(UInt32 poolID, UInt32 size, UInt32 elementSize)
 	for (int i = 0; i < size; i++)
 	{
 		hdr->elements[i].next = &(hdr->elements[i + 1]);
-		hdr->elements[i].pointer = ElementAt(hdr, i);
+		hdr->elements[i].pointer = KPoolElementAt(hdr, i);
 	}
 
 	hdr->elements[size - 1].next = 0;
@@ -36,7 +36,7 @@ void *KPoolAcquireElement(PoolHeader *hdr)
 {
 	if (!hdr->firstFree)
 	{
-		KDebugPrintF(L"TODO: Grow pool %d...\r\n", hdr->poolID);
+		KDebugPrintF(L"TODO: Grow pool %08x...\r\n", hdr->poolID);
 		return NULL;
 	}
 
@@ -48,18 +48,18 @@ void *KPoolAcquireElement(PoolHeader *hdr)
 
 	f->pointer = NULL;
 	f->next = NULL;
-
+    
 	return ptr;
 }
 
 void KPoolReleaseElement(PoolHeader *hdr, void* element)
 {
-	UInt32 index = IndexOf(hdr, element);
+    UInt32 index = KPoolIndexOf(hdr, element);
 
 	ElementEntry *f = &(hdr->elements[index]);
 
-	f->pointer = ElementAt(hdr, index);
+    f->pointer = KPoolElementAt(hdr, index);
 	f->next = hdr->firstFree;
-
+    
 	hdr->firstFree = f;
 }

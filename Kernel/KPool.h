@@ -14,15 +14,16 @@ struct PoolHeader
 {
 	UInt32 poolID;
 	UInt32 poolSize;
-	UInt32 elementSize;
+    UInt32 elementSize;
 	ElementEntry *firstFree;
 	ElementEntry elements[0];
 };
 
-UInt32 IndexOf(PoolHeader *hdr, void *element);
-void* ElementAt(PoolHeader *hdr, UInt32 index);
 PoolHeader *KPoolAllocate(UInt32 poolID, UInt32 size, UInt32 elementSize);
 void *KPoolAcquireElement(PoolHeader *hdr);
 void KPoolReleaseElement(PoolHeader *hdr, void* element);
+
+UInt32 KPoolIndexOf(PoolHeader *hdr, void *element);
+void* KPoolElementAt(PoolHeader *hdr, UInt32 index);
 
 #pragma warning(pop)
