@@ -18,11 +18,12 @@ void InitializeObjectManager()
 // TODO: Requires a working name system
 ResultCode ClassGetById(UInt32 id, ClassInformation*& ret)
 {
+    return OK;
 }
 
 ResultCode ClassRegister(UInt32 id, UIntPtr objectSize, UIntPtr reserved_metadata)
 {
-
+    return OK;
 }
 
 ResultCode ObjectAllocate(UInt32 ownerID, KCString name, UInt32 classID, Handle& object);

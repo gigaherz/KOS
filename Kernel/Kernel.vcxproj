@@ -31,7 +31,7 @@
     <OutDir>$(SolutionDir)\Output\</OutDir>
     <IntDir>$(SolutionDir)\Temp\$(ProjectName)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExecutablePath>H:\Dev\Tools\nasm\;$(ExecutablePath)</ExecutablePath>
+    <ExecutablePath>D:\devtools\nasm\;H:\Dev\Tools\nasm\;$(ExecutablePath)</ExecutablePath>
     <GenerateManifest>false</GenerateManifest>
     <EmbedManifest>false</EmbedManifest>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
