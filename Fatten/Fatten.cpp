@@ -76,7 +76,7 @@ int main(int oargc, char* oargv[])
 
 	imageFileName = argv[0];
 
-	if(f_mount(0, &ffs))
+	if(f_mount(&ffs, 0, 1))
 	{
 		printf("Error: could not mount image file '%s'. \n", imageFileName);
 		goto print_help;
