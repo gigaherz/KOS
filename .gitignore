@@ -57,3 +57,6 @@ UpgradeLog*.htm
 /APILib/Debug
 /APILib/Release
 
+/BuildCustomization/masm.props
+/BuildCustomization/masm.targets
+/BuildCustomization/masm.xml

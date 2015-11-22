@@ -27,7 +27,8 @@
       <ErrorReportingFormat>1</ErrorReportingFormat>
       <CommandLineTemplate Condition="'$(Platform)' == 'Win32'">nasm.exe [AllOptions] [AdditionalOptions] [Inputs]</CommandLineTemplate>
       <CommandLineTemplate Condition="'$(Platform)' == 'X64'">nasm.exe [AllOptions] [AdditionalOptions] [Inputs]</CommandLineTemplate>
-      <CommandLineTemplate Condition="'$(Platform)' != 'Win32' and '$(Platform)' != 'X64'">echo NASM not supported on this platform</CommandLineTemplate>
+      <CommandLineTemplate Condition="'$(Platform)' != 'Win32' and '$(Platform)' != 'X64'">echo NASM not supported on this platform
+exit 1</CommandLineTemplate>
       <ExecutionDescription>Assembling %(Identity)...</ExecutionDescription>
     </NASM>
   </ItemDefinitionGroup>

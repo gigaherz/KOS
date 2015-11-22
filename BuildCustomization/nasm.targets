@@ -62,11 +62,11 @@
       NumberOverflow="%(NASM.NumberOverflow)"
       MacroSelfref="%(NASM.MacroSelfref)"
       UndefinePreprocessorDefinitions="%(NASM.UndefinePreprocessorDefinitions)"
+
       ObjectFileName="%(NASM.ObjectFileName)"
       PreprocessorDefinitions="%(NASM.PreprocessorDefinitions)"
       AssembledCodeListingFile="%(NASM.AssembledCodeListingFile)"
       IncludePaths="%(NASM.IncludePaths)"
-
 
 
 
