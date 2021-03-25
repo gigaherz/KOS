@@ -124,7 +124,7 @@ void KMain(MultibootInfo* mbinfo)
                 DateTime dt = KRTCGetDateTime();
 
                 KDisplayPrint(L"\r                                ");
-                KDisplayPrintF(L"\r%02d:%02d:%02d",nSeconds, dt.hour, dt.minute, dt.second);
+                KDisplayPrintF(L"\r%d @ %02d:%02d:%02d",nSeconds, dt.hour, dt.minute, dt.second);
                 oldTicks = newTicks;
             }
         }

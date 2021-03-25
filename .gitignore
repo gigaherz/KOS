@@ -5,9 +5,15 @@
 *.ipch
 *.sdf
 *.opensdf
+*.log
+*.db
+*.!sync
 
 UpgradeLog*.XML
 UpgradeLog*.htm
+
+/Output.flp
+/Kernel/success.txt
 
 /ipch/
 
@@ -32,12 +38,14 @@ UpgradeLog*.htm
 /Debug
 /Release
 /Output
+/Standard
 
 /Libraries/Debug
 /Libraries/Release
 
 /KTestDriver/Debug
 /KTestDriver/Release
+/KTestDriver/Standard
 
 /KDriverRuntime/Debug
 /KDriverRuntime/Release
@@ -60,3 +68,5 @@ UpgradeLog*.htm
 /BuildCustomization/masm.props
 /BuildCustomization/masm.targets
 /BuildCustomization/masm.xml
+
+/.vs
