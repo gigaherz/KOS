@@ -83,6 +83,6 @@ void __cdecl KSerialPrintF(KCString fmt, ...)
     va_list lst;
 
     va_start(lst,fmt);
-    KSimplePrintF(KDisplayWriteCallback, 0, fmt, lst);
+    KSimplePrintF(KDisplayWriteCallback, nullptr, fmt, lst);
     va_end(lst);
 }

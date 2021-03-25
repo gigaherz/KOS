@@ -94,7 +94,7 @@ void KMain(MultibootInfo* mbinfo)
 
 	KDebugPrintF(L"Allocated one page at %x..\r\n", addr);
 
-	int * numbers = (int*) addr;
+	int * numbers = reinterpret_cast<int*>(addr);
 
 	numbers[0] = addr - 0x80000000;
 

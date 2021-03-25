@@ -1,0 +1,64 @@
+Status Code:
+	SSMMMMMMMMCCCCCCEEEEEEEEEEEEEEEE
+		SS: Severity code
+		MM: Module/facility/program code
+		CC: Category code
+		EE: Error code
+
+Severity
+	0 Success
+	1 Warning: Succeeded, but the requested behaviour may not be guaranteed
+	2 Failure: The operation could not be completed in a safe way and was aborted
+	3 Exception: The operation was terminated prematurely and the post-conditions may not be met
+	
+Module
+	00000000: General Status Codes
+	
+Module 0 Error Categories and Codes
+	00 General Failures: An unspecified or uncategorized error has prevented the request from succeeding.
+		0001: Generic failure
+		0002: 
+
+	01 Pre-Condition Failed: The given parameters do not result in a valid operation.
+		00000001: Invalid parameter
+		00000002: Parameter out of range
+		00000003: Conflicting parameters
+		00000004: Invalid operation
+		00000005: 
+	
+	02 Post-Condition Failed: The results do not fit with a valid value, and were discarded.
+		00000001: Unexpected result
+		00000002:
+
+	03 Access Control Failed: The given context is not allowed to execute the requested operation
+		00000001: Access denied
+		00000002: Access control could not validate the request
+
+	04 Communication Failed: The requested operation could not complete a communication process
+		00000001: Target could not be found
+		00000002: Target lost
+		00000003: Communication request timed out
+		00000004: Communication rejected
+		00000005: Communication aborted
+		00000006: Data send error
+		00000007: Data receive error
+
+	05 Device Access Failed: Equivalent to 04, but for Device I/O
+		00000001: Device could not be found
+		00000002: Device lost
+		00000003: Device request timed out
+		00000004: Device request rejected
+		00000005: Device request aborted
+		00000006: Data send error
+		00000007: Data receive error
+
+...
+
+	3E User Error: Problem Exists Between Keyboard And Chair
+		00000001: The request is against all reasonable logic
+
+	3F Fatal Hardware Failure: The hardware has failed catastrophically and the system can't recover
+		00000001: General hardware failure
+		00000002: 
+		
+		

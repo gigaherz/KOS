@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{069EDA5A-2B90-4F7D-A4D5-822BDDF1E70C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{A1F97043-C3A6-4EDC-AB5B-4CC259A4F7A4}"
@@ -21,40 +23,49 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KDriverRuntime", "KDriverRuntime\KDriverRuntime.vcxproj", "{62B48AB8-C445-4438-9F46-C9F6F59F6222}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kernel", "Kernel\Kernel.vcxproj", "{8479758C-9CD4-401D-AA3A-FD0B0BD29673}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E9DF8156-B273-4607-ABFE-80F6554906BD} = {E9DF8156-B273-4607-ABFE-80F6554906BD}
-		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6} = {BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
+		Standard|Win32 = Standard|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E9DF8156-B273-4607-ABFE-80F6554906BD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E9DF8156-B273-4607-ABFE-80F6554906BD}.Debug|Win32.Build.0 = Debug|Win32
 		{E9DF8156-B273-4607-ABFE-80F6554906BD}.Release|Win32.ActiveCfg = Release|Win32
 		{E9DF8156-B273-4607-ABFE-80F6554906BD}.Release|Win32.Build.0 = Release|Win32
+		{E9DF8156-B273-4607-ABFE-80F6554906BD}.Standard|Win32.ActiveCfg = Release|Win32
+		{E9DF8156-B273-4607-ABFE-80F6554906BD}.Standard|Win32.Build.0 = Release|Win32
 		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}.Debug|Win32.Build.0 = Debug|Win32
 		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}.Release|Win32.ActiveCfg = Release|Win32
 		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}.Release|Win32.Build.0 = Release|Win32
+		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}.Standard|Win32.ActiveCfg = Release|Win32
+		{BCE2FEA3-5D1A-4F37-A425-BE70F0A278B6}.Standard|Win32.Build.0 = Release|Win32
 		{64294D71-A4D0-4248-BBA0-B389A8DDF60F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{64294D71-A4D0-4248-BBA0-B389A8DDF60F}.Debug|Win32.Build.0 = Debug|Win32
 		{64294D71-A4D0-4248-BBA0-B389A8DDF60F}.Release|Win32.ActiveCfg = Release|Win32
-		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Debug|Win32.Build.0 = Debug|Win32
-		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Release|Win32.ActiveCfg = Release|Win32
-		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Release|Win32.Build.0 = Release|Win32
+		{64294D71-A4D0-4248-BBA0-B389A8DDF60F}.Standard|Win32.ActiveCfg = Release|Win32
+		{64294D71-A4D0-4248-BBA0-B389A8DDF60F}.Standard|Win32.Build.0 = Release|Win32
+		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Debug|Win32.ActiveCfg = Standard|Win32
+		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Debug|Win32.Build.0 = Standard|Win32
+		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Release|Win32.ActiveCfg = Standard|Win32
+		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Release|Win32.Build.0 = Standard|Win32
+		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Standard|Win32.ActiveCfg = Standard|Win32
+		{EF8C63EF-74DF-42C2-8F76-D788E8D43A2A}.Standard|Win32.Build.0 = Standard|Win32
 		{62B48AB8-C445-4438-9F46-C9F6F59F6222}.Debug|Win32.ActiveCfg = Debug|Win32
 		{62B48AB8-C445-4438-9F46-C9F6F59F6222}.Debug|Win32.Build.0 = Debug|Win32
 		{62B48AB8-C445-4438-9F46-C9F6F59F6222}.Release|Win32.ActiveCfg = Release|Win32
 		{62B48AB8-C445-4438-9F46-C9F6F59F6222}.Release|Win32.Build.0 = Release|Win32
+		{62B48AB8-C445-4438-9F46-C9F6F59F6222}.Standard|Win32.ActiveCfg = Release|Win32
+		{62B48AB8-C445-4438-9F46-C9F6F59F6222}.Standard|Win32.Build.0 = Release|Win32
 		{8479758C-9CD4-401D-AA3A-FD0B0BD29673}.Debug|Win32.ActiveCfg = Standard|Win32
 		{8479758C-9CD4-401D-AA3A-FD0B0BD29673}.Debug|Win32.Build.0 = Standard|Win32
 		{8479758C-9CD4-401D-AA3A-FD0B0BD29673}.Release|Win32.ActiveCfg = Standard|Win32
 		{8479758C-9CD4-401D-AA3A-FD0B0BD29673}.Release|Win32.Build.0 = Standard|Win32
+		{8479758C-9CD4-401D-AA3A-FD0B0BD29673}.Standard|Win32.ActiveCfg = Standard|Win32
+		{8479758C-9CD4-401D-AA3A-FD0B0BD29673}.Standard|Win32.Build.0 = Standard|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
